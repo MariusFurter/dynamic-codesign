@@ -269,7 +269,6 @@ We consider some special cases to illustrate this definition.
 \begin{tcexample}{Time-invariant system}{time-inv-sys}
     If $T := \{* \}$, our system consist of a single function $f : A \rightarrow B$ and $u_*: A \times T \rightarrow T$ is uniquely defined. Hence our states are simply $$ S := \{ (f, f(a)) : a \in A\}.$$
     Inputting $a_1 \in A$ into the system outputs $f(a_1)$ and updates the state to $f, f(a_1))$. Now inputting $a_2 \in A$ outputs $f(a_2)$ and updates the state to $f, f(a_2))$. So our system simply behaves like the function $f$ and transforms a stream of inputs $(a_1, a_2, a_3, \ldots) \in A^{\mathbb{N}}$ into the stream $(f(a_1), f(a_2), f(a_3), \ldots)\in B^{\mathbb{N}}$.
-
 \end{tcexample}
 
 \begin{tcexample}{Linear time system with constant interface}{lin-time-sys}
@@ -282,13 +281,30 @@ We consider some special cases to illustrate this definition.
 \end{tcexample}
 
 \begin{tcexample}{Branching time system with constant interfaces}{branch-time-sys}
-    Let $A_t = \{0,1\}$ and $B_t = B$ for all $t \int T := \{(n,i) : n \in \mathbb{N}, 1 \leq i \leq 2^n \}$. Our available transformations and their transitions are given by the branching graph:
+    Let $A_t = \{0,1\}$ and $B_t = B$ for all $t \in T := \{(n,i) : n \in \mathbb{N}, 1 \leq i \leq 2^n \}$. Our available transformations and their transitions are given by the branching graph:
 
     This graph is simultaneously the transition diagram for our system, where the second element in the tuple is what the system is currently outputting. Given a vertex $s$ representing a state, the available inputs correspond to the labeled edges emanating from $s$. If we input $a$ to the system, following the edge with label $a$ leads to the new state, along with its output.
 \end{tcexample}
 
 \subsection{Application to codesign}
+To apply the above top codesign, we simply specialize the functions $f_i: A_i \rightarrow B_i$ to be monotone maps $\phi_i: \low R_i \rightarrow \low F_i$ which preserve unions. A nice feature is that each $\low P$ contains the emptyset which can act as a default value for input and output. Inputting the emptyset corresponds to waiting.
+
+\begin{tcexample}{Waiting}{waiting}
+    So far, each transition takes exactly one time-step which is modeled as an application of the function $u_t$. What if we want certain transformations to take longer? One way to achieve this is to close the input channel for several time-steps and only then outputting the functionality. This is illustrated by the following transition diagram:
+
+\end{tcexample}
+
+We can think of a vanilla codesign problem as a time-invariant system as in Example~\ref{ex:time-inv-sys}. So there is a way to map any object in \textsf{DP} into poly using that construction. A nice feature of embedding codesign in \textsf{Poly} is that we can use the operations present there to build larger systems in an intuitive manner.
+
+\subsubsection{Parallel Product}
+Suppose we have two systems $\Phi := (T^\Phi, \varphi_t :\low R^\Phi_i \rightarrow \low F^\Phi_i, u^\Phi_t) $ and $\Psi := (T^\Psi, \psi_t :\low R^\Psi_i \rightarrow \low F^\Psi_i, u^\Psi_t) $. There parallel product has signature
+$$(S^\Phi \times S^\Psi) y^{(S^\Phi \times S^\Psi)} \rightarrow \sum_{t \in T^\Phi}\sum_{f \in \low F^\Phi_t} \sum_{s \in T^\Psi} \sum_{g \in \low F^\Psi_s} y^{\low R^\Phi_t \times \low R^\Psi_s} \cong \sum_{(t,s) \in T^\Phi \times T^\Psi} (\low R^\Phi_t \times \low R^\Psi_s) y^{\low R^\Phi_t \times \low R^\Psi_s}  $$
+and has on positions map $((\varphi_{u^\Phi_t(r)}, \varphi_t(r)),(\psi_{u^\Psi_t(r')}, \psi_t(r'))) \mapsto (\varphi_t(r), \psi(r'))$ and for $s = ((\varphi_t, x),(\psi_{t'}, x')$ it has on-directions map $(r,s) \mapsto ((\varphi_{u^\Phi_t(r)}, \varphi_t(r)),(\psi_{u^\Psi_{t'}(s)}, \psi(s))$.
+
+\subsubsection{Composition}
 
 
 \subsection{Recovering codesign problem}
+
+How do trajectories compose?
 \end{document}
