@@ -1,0 +1,294 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{balance}
+\setlength{\columnsep}{1 \baselineskip}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\usepackage{caption}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage[font=small,labelfont=bf]{caption}
+
+\usepackage{amsmath}
+
+\interdisplaylinepenalty = 2500
+
+\usepackage{mathtools}
+
+\usepackage{amssymb}
+
+%\usepackage{stmaryrd}
+
+\usepackage{amsthm}
+
+%\usepackage{latexsym}
+
+\usepackage{IEEEtrantools}
+
+\usepackage{eucal}
+
+\usepackage{bbm}
+
+\usepackage{scalerel}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{darkgreen}{RGB}{35, 89, 52}
+\definecolor{paleorange}{RGB}{255, 236, 207}
+\definecolor{paleteal}{RGB}{223, 245, 243}
+\definecolor{palered}{RGB}{255, 234, 232}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{tikz-cd}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=darkgreen,
+	filecolor=magenta,      
+	urlcolor=MidnightBlue,
+	citecolor=darkgreen,
+	pdftitle={Dynamic codesign in Poly},
+	bookmarks=true
+}
+
+
+\usepackage[
+backend=bibtex,
+maxbibnames=50,
+style=alphabetic,
+citestyle=alphabetic]{biblatex}
+\addbibresource{candoc.bib}
+%Remove In: from journal articles
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+
+
+\theoremstyle{definition}
+
+\newtheorem{counter}{Definition}[section]
+
+\newtheorem{definitionx}[counter]{Definition}
+\newenvironment{definition}
+  {\pushQED{\qed}\renewcommand{\qedsymbol}{$\triangleleft$}\definitionx}
+  {\popQED\enddefinitionx}
+
+\theoremstyle{plain} 
+\newtheorem{lemma}[counter]{Lemma}
+
+\theoremstyle{plain} 
+\newtheorem{proposition}[counter]{Proposition}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[counter]{Theorem}
+
+\theoremstyle{plain}
+\newtheorem{question}[counter]{Question}
+
+\theoremstyle{plain}
+\newtheorem{problem}[counter]{Problem}
+
+\theoremstyle{remark}
+
+\newtheorem{examplex}[counter]{Example}
+\newenvironment{example}
+  {\pushQED{\qed}\renewcommand{\qedsymbol}{$\diamond$}\examplex}
+  {\popQED\endexamplex}
+
+\newtheorem*{excont}{Example \continuation}
+\newcommand{\continuation}{??}
+\newenvironment{continueexample}[1]
+{\renewcommand{\continuation}{\ref{#1}}\excont[continued]}
+{\endexcont}
+
+\theoremstyle{remark}
+\newtheorem{remark}[counter]{Remark}
+
+\usepackage[most]{tcolorbox}
+\newtcbtheorem[number within=section]{tcdefinition}{Definition}{colback=paleteal,colframe=NavyBlue,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{def}
+
+\newtcbtheorem[number within=section, use counter from = tcdefinition]{tctheorem}{Theorem}{colback=paleteal,colframe=NavyBlue,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{thm}
+
+\newtcbtheorem[number within=section, use counter from = tcdefinition]{tcexample}{Example}{colback=paleorange,colframe=BurntOrange,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{ex}
+
+\newtcbtheorem[]{tcproblem}{Problem}{colback=palered,colframe=Bittersweet,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{pr}
+
+\newcommand{\zuz}[1]{%
+	
+	\begin{tikzpicture}[#1]%
+	
+	\draw[semithick, line cap = round, line join = round] (-0.3ex,0.35ex) -- (0.5ex,0.35ex);
+	
+	\draw[semithick, line cap = round, line join = round] (0.5ex,0.35ex) -- (0.5ex,-0.5ex);
+	
+	\draw[semithick, line cap = round, line join = round] (0.5ex,-0.5ex) -- (1.5ex,-0.5ex);
+	
+	\draw[semithick, line cap = round, line join = round] (0,0) -- (1ex,0);%
+	
+	\draw[semithick, line cap = round, line join = round] (1ex,0) -- (1ex,-0.85ex);
+	
+	\draw[semithick, line cap = round, line join = round] (1ex,-0.85ex) -- (1.8ex,-0.85ex);
+	
+	\end{tikzpicture}%
+	
+} 
+
+\renewcommand\qedsymbol{\zuz{scale=1.5}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\sub}{\subseteq}
+
+\newcommand{\upper}{\mathsf{U}}
+\newcommand{\upc}[1]{\uparrow{#1}}
+
+\newcommand{\low}{\mathsf{L}}
+\newcommand{\lwc}[1]{\downarrow{#1}}
+
+\newcommand{\op}[1]{#1^{\text{op}}}
+
+\newcommand{\slens}[2]{\raisebox{0.4ex}{\scaleobj{0.25}{\begin{pmatrix} \scaleobj{3}{{#1}} \\ \scaleobj{3}{{#2}} \end{pmatrix}}}}
+\newcommand{\lens}[2]{\scaleobj{0.6}{\begin{pmatrix} \scaleobj{1.3}{{#1}} \\ \scaleobj{1.3}{{#2}} \end{pmatrix}}}
+\newcommand{\blens}[2]{\scaleobj{0.9}{\begin{pmatrix} {#1} \\ {#2} \end{pmatrix}}}
+
+\makeatletter
+\def\slashedarrowfill@#1#2#3#4#5{%
+	$\m@th\thickmuskip0mu\medmuskip\thickmuskip\thinmuskip\thickmuskip
+	\relax#5#1\mkern-7mu%
+	\cleaders\hbox{$#5\mkern-2mu#2\mkern-2mu$}\hfill
+	\mathclap{#3}\mathclap{#2}%
+	\cleaders\hbox{$#5\mkern-2mu#2\mkern-2mu$}\hfill
+	\mkern-7mu#4$%
+}
+\def\rightslashedarrowfill@{%
+	\slashedarrowfill@\relbar\relbar\mapstochar\rightarrow}
+\newcommand\xslashedrightarrow[2][]{%
+	\ext@arrow 0055{\rightslashedarrowfill@}{#1}{#2}}
+\makeatother
+
+\newcommand{\prof}{\xslashedrightarrow{}}
+
+\title{Dynamic codesign in \textsf{Poly}}
+\author{Marius Furter}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Recap of \textsf{Poly}}
+Recall that a \emph{representable functor} has the form $\mathcal{C}(A,-) : \mathcal{C} \rightarrow \mathsf{Set} $. When $\mathcal{C} = \mathsf{Set}$, we will denote $\mathsf{Set}(A,-) =: y^A$ and call this a \emph{monomial}. A \emph{polynomial functor} is any functor that is isomorphic to a sum of monomials
+$$p \cong \sum_{i \in I} y^{p[i]},$$
+where the $(p[i])_{i \in I}$ is a family of sets, and the sum is taken to be the coproduct in the functor category $[\mathsf{Set},\mathsf{Set}]$ given by taking the component-wise disjoint union of the sets in question. Observe that if we evaluate $p$ at the singleton set $1$, we recover the indexing set of the sum
+$$p(1) \cong \sum_{i \in I} 1^{p[i]} \cong \sum_{i \in I} 1 \cong I.$$
+Hence we will often write $p \cong \sum_{i \in p(1)} y^{p[i]}$ to avoid always having to name the index set. The elements of $p(1)$ are called the \emph{positions} of $p$, while the elements of $p[i]$ are called the \emph{directions} at position $i$.
+
+Since polynomial functors are functors, morphisms between them are given by natural transformations. By using the universal property of coproducts in $[\mathsf{Set},\mathsf{Set}]$ along with the Yoneda lemma, one can observe that
+\begin{IEEEeqnarray*}{rCl}
+	\mathsf{Poly}(p,q) &=& \mathsf{Poly}(\sum_{i \in p(1)} y^{p[i]},\sum_{j \in q(1)} y^{q[j]}) \\
+	&\cong& \prod_{i \in p(1)} \mathsf{Poly}(y^{p[i]},\sum_{j \in q(1)} y^{q[j]}) \\
+	&\cong& \prod_{i \in p(1)} \sum_{j \in q(1)} {p[i]}^{q[j]}
+\end{IEEEeqnarray*}
+The latter expression can be interpreted in terms of dependent products and sums: For every $i \in p(1)$ there exists $j \in q(1)$ with associated function $q[j] \rightarrow p[i]$. In other words, a morphism in $\mathsf{Poly}$ may be identified with a function $f: p(1) \rightarrow q(1)$ on positions, along with a family of functions $(f_i)_{i \in p(1)}$ where $f_i: q[f(i)] \rightarrow p[i]$ is a function on directions. This family can be expressed more concisely by assembling it into a dependent function $f^\sharp: (i \in I) \rightarrow q[f(i)] \rightarrow p[i]$.
+
+\subsection{Lenses in $\mathsf{Poly}$}
+We can express lenses in $\mathsf{Set}$ within $\mathsf{Poly}$ as maps between special types of polynomials. Let us generalize the term \emph{monomial} to include polynomials of the form $\sum_{i \in S} y^{A} \cong S y^A$, where the direction sets are independent of the positions. Now consider a morphism
+$$\lens{f^\sharp}{f} :A^+ y^{A^-} \rightarrow B^+ y^{B^-} .$$
+This consists of an on-positions function $f: A^+ \rightarrow B^+$ and an on-directions dependent function $f^\sharp : (a^+ \in A^+) \rightarrow B^- \rightarrow A^-$. However, since the direction sets are independent of the positions, this is just a regular function and can be curried to $f^\sharp: A^+ \times B^- \rightarrow A^-$. We now recognize that this is just a lens
+$$\lens{f^\sharp}{f} : \lens{A^-}{A^+} \leftrightarrows \lens{B^-}{B^+}.$$
+
+\subsection{Operations in $\mathsf{Poly}$}
+$\mathsf{Poly}$ has four monoidal operations $+, \times,\circ,$ and $\otimes$, where $\times$ and $\otimes$ are monoidal closed. The first two are simply the categorical coproduct and product, respectively. For $p = \sum_{i \in p(1)} y^{p[i]}$ and $q = \sum_{j \in q(1)} y^{q[j]}$ these are given by the familiar addition and multiplication of polynomials:
+$$p + q = \sum_{i \in p(1)} y^{p[i]} + \sum_{j \in q(1)} y^{q[j]},$$
+$$p \times q = \sum_{i \in p(1)}\sum_{j \in q(1)} y^{p[i]+q[j]}.$$
+
+On the other hand, $\circ$ is just functor composition, which corresponds to variable substitution for polynomials. It can be computed as
+$$p \circ q \cong \sum_{i \in p(1)} \prod_{d \in p[i]} \sum_{j \in q(1)} \prod_{e \in q[j]} y .$$
+
+Finally, $\otimes$ is given by multiplying both the postitions and directions:
+$$p \otimes q = \sum_{i \in p(1)} \sum_{j \in q(1)} y^{p[i]q[j]}.$$
+In fact, if we tensor two lenses 
+$$\lens{f^\sharp}{f} :A^+_1 y^{A^-_1} \rightarrow B^+_1 y^{B^-_1} .$$
+$$\lens{g^\sharp}{g} :A^+_2 y^{A^-_2} \rightarrow B^+_2 y^{B^-_2} .$$
+we get a lens
+$$(A^+_1 \times A^+_2)  y^{A^-_1 \times A^-_2} \rightarrow (B^+_1 \times B^+_2)y^{B^-_1 \times B^-_2}$$
+which recovers the usual tensor product of lenses.
+
+\subsection{Mode-dependence}
+We have seen that we can model lenses as polynomial morphisms 
+$$\lens{f^\sharp}{f} :A^+ y^{A^-} \rightarrow B^+ y^{B^-} .$$
+Translating a lens representing a dynamical system thus yields a morphism
+$S y^S \rightarrow O y^I$. We obtain mode-dependent systems by generalizing the former to morphisms of the type $S y^S \rightarrow q$, where $q$ is an arbitrary polynomial. Let us see how this differs from what we had before.
+
+To specify a map $\sum_{s \in S} y^S \cong S y^S \rightarrow \sum_{j \in q(1)} y^{q[j]}$ we must give a function $f: S \rightarrow q(1)$ on positions and a dependent function $f^\sharp: (s \in S) \rightarrow q[f(s)] \rightarrow S$ on directions. We still think of the elements of $q(1)$ as outputs. The passback function $f^\sharp$ now additionally takes into account what the current output is, since it goes from $q[f(s)] \rightarrow S$ for each $s \in S$. In other words, the possible inputs a system can receive now depend on what the current output is.
+
+\section{Codesign in \textsf{Poly}}
+
+\subsection{Preliminaries}
+Let $P$ be a preorder whose objects we interpret as resources and whose relation $a \leq b$ means that being able to provide $b$ implies being able to provide $a$. A feasibility relation $\Phi: F \prof R$ is then a monotone function $\op{F} \times R \rightarrow \mathsf{Bool}$. Observe that
+\begin{IEEEeqnarray*}{rCl}
+    \hom(\op F \times R, \mathsf{Bool}) & \cong & \hom(R, \hom(\op F, \mathsf{Bool})) \\
+    & \cong & \hom(R, \low F)
+\end{IEEEeqnarray*}
+Consider a monotone map $\varphi: \low R \rightarrow \low F$ which preserves unions. This induces a monotone map $\bar \varphi: R \rightarrow \low F$ by $\bar \varphi(r) := \varphi(\lwc r)$, where $\lwc r$ denotes the lower closure of $\{r\}$. On the other hand, if we have a monotone map $\psi: R \rightarrow \low F$ we can extend it in a unique way to a monotone map $\tilde \psi: \low R \rightarrow \low F$ which preserves unions by setting $\tilde \psi (\lwc s) := \psi(s)$ on principal lower sets. Then $\tilde \psi(S) = \tilde \psi(\bigcup_{s \in S} \lwc s) = \bigcup_{s \in S} \tilde \psi(\lwc s) = \bigcup_{s \in S} \psi(s)$. Since these operations are inverse to one another we have shown that 
+$$ \hom(R, \low F) \cong \{\varphi \colon \low R \rightarrow \low F : \varphi \text{ monotone and preserves unions.}\} $$
+Combining with the above, this shows that feasibility relation are just union preserving monotone functions $\low R \rightarrow \low F$. Moreover, the composition of such functions is again monotone and preserves unions. This justifies restricting out attention to monotone maps with this special property.
+
+\subsection{Basic Setup}
+Let $f_t: A_t \rightarrow B_t$ be a family of functions between sets indexed by $t \in T$. Moreover, let $u_t: A_t \rightarrow T$ be a family of function indexed by $T$. We interpret $T$ as a (branching) timeline. If at time $t \in T$ we choose to transform $a \in A_t$ to $f_t(a) \in B_t$, then the timeline advances to $u_t(a) \in T$. 
+
+We can view this data as a directed graph with vertices $(f_t, t)$ for $t \in T$ where any vertex $(f_t,t)$ has edges emanating from it indexed by $A_t$. The vertices of this graph are interpreted as the transformations $f_t: A_t \rightarrow B_t$ that are available to us at time $t$. Using $f_t$ on $a \in A_t$ advances time to $u_t(a)$ where we now have $f_{u_t(a)}: A_{u_t(a)} \rightarrow B_{u_t(a)}$ available to us.
+
+\begin{tcexample}{Linear time}{lin-time}
+    To model linear time we set $T := \mathbb{N}$ and put $u_t : A_t \rightarrow T$ to be $u_t(a) = t+1$ for all $a \in A_t$ and $t \in T$. The resulting graph looks like this:
+
+
+\end{tcexample}
+
+\begin{tcexample}{Branching time}{branch-time}
+    Our model for time can accommodate branching which depends on our choices. Let $T := \{(n,i) : n \in \mathbb{N}, 1 \leq i \leq 2^n \}$, and let $A_t := \{0,1\}$ for all $t \in T$. We can now consider the branching tree:
+
+\end{tcexample}
+
+We now encode this data in a mode-dependent system in \textsf{Poly} with states
+$$ S := \{ (f_{u_t(a)}, f_t(a)) : a \in A_t \}.$$
+The input set at time $t$ will be $A_t$ and the output set $B_t$. This means that we are considering the system
+$$ S y^S \rightarrow \sum_{t \in T} B_t y^{A_t}$$
+with on-positions map $(f_{u_t(a)}, f_t(a)) \mapsto f_t(a) \in B_t$ and on directions map $(f_t, x) \mapsto a \mapsto (f_{u_t(a)}, f_t(a))$.
+
+We consider some special cases to illustrate this definition.
+\begin{tcexample}{Time-invariant system}{time-inv-sys}
+    If $T := \{* \}$, our system consist of a single function $f : A \rightarrow B$ and $u_*: A \times T \rightarrow T$ is uniquely defined. Hence our states are simply $$ S := \{ (f, f(a)) : a \in A\}.$$
+    Inputting $a_1 \in A$ into the system outputs $f(a_1)$ and updates the state to $f, f(a_1))$. Now inputting $a_2 \in A$ outputs $f(a_2)$ and updates the state to $f, f(a_2))$. So our system simply behaves like the function $f$ and transforms a stream of inputs $(a_1, a_2, a_3, \ldots) \in A^{\mathbb{N}}$ into the stream $(f(a_1), f(a_2), f(a_3), \ldots)\in B^{\mathbb{N}}$.
+
+\end{tcexample}
+
+\begin{tcexample}{Linear time system with constant interface}{lin-time-sys}
+    Now consider $T := \mathbb{N}$ with $A_t = A$, $B_t = B$ for all $t$ and set $u_t(a) = t+1$ for all $a \in A$. However let $f_t: A \rightarrow B$ be potentially different functions. Hence our states are simply $$ S := \{ (f_{t+1}, f_t(a)) : t \in \mathbb{N}, a \in A\}.$$
+    Our systems always accepts inputs from $A$ and outputs into $B$. Suppose we start in the state $(f_0,x)$, where $x \in B$ is some default initial output. Then inputting $a_0 \in A$ into the systems will update the state to $(f_1,f_0(a_1))$ and cause it to output $f_0(a_0)$. Inputting $a_1 \in A$ will update the state to $(f_2,f_1(a_1))$ and output $f_1(a_1)$. So our system transforms inputs $(a_0, a_1, a_2, \ldots) \in A^{\mathbb{N}}$ into the stream $(f_0(a_0), f_1(a_1), f_2(a_2), \ldots)\in B^{\mathbb{N}}$.
+\end{tcexample}
+
+\begin{tcexample}{Linear time system with variable interfaces}{lin-var-time-sys}
+    We can change what input type the linear time system above accepts by letting the input and output sets $A_t, B_t$ vary over time. Such a system transforms inputs $(a_0, a_1, a_2, \ldots) \in \prod_{t \in \mathbb{N}} A_t$ into the stream $(f_0(a_0), f_1(a_1), f_2(a_2), \ldots)\in \prod_{t \in \mathbb{N}} B_t$.
+\end{tcexample}
+
+\begin{tcexample}{Branching time system with constant interfaces}{branch-time-sys}
+    Let $A_t = \{0,1\}$ and $B_t = B$ for all $t \int T := \{(n,i) : n \in \mathbb{N}, 1 \leq i \leq 2^n \}$. Our available transformations and their transitions are given by the branching graph:
+
+    This graph is simultaneously the transition diagram for our system, where the second element in the tuple is what the system is currently outputting. Given a vertex $s$ representing a state, the available inputs correspond to the labeled edges emanating from $s$. If we input $a$ to the system, following the edge with label $a$ leads to the new state, along with its output.
+\end{tcexample}
+
+\subsection{Application to codesign}
+
+
+\subsection{Recovering codesign problem}
+\end{document}
