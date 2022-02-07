@@ -243,6 +243,8 @@ Consider a monotone map $\varphi: \low R \rightarrow \low F$ which preserves uni
 $$ \hom(R, \low F) \cong \{\varphi \colon \low R \rightarrow \low F : \varphi \text{ monotone and preserves unions.}\} $$
 Combining with the above, this shows that feasibility relation are just union preserving monotone functions $\low R \rightarrow \low F$. Moreover, the composition of such functions is again monotone and preserves unions. This justifies restricting out attention to monotone maps with this special property.
 
+(Check this!)(Ordering the lower sets by inclusion makes the union a join. Hence we are considering join-preserving monotone maps in the category of distributive lattices. We can think of the above correspondence as being a functor (show this!) from \textsf{DP} to the category of distributive lattices with join-preserving maps. The fact that there is a bijection between feasibility relations and join-preserving monotone maps shows that it is faithful. By Birkhoff's representation theorem, any finite distributive lattice is equal to the lower sets of some partial order (and hence preorder). Therefore, the functor is also essentially surjective if we restrict our attention to finite design problems and finite distributive lattices.)
+
 \subsection{Basic Setup}
 Let $f_t: A_t \rightarrow B_t$ be a family of functions between sets indexed by $t \in T$. Moreover, let $u_t: A_t \rightarrow T$ be a family of function indexed by $T$. We interpret $T$ as a (branching) timeline. If at time $t \in T$ we choose to transform $a \in A_t$ to $f_t(a) \in B_t$, then the timeline advances to $u_t(a) \in T$. 
 

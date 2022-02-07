@@ -1,9 +1,9 @@
-PWD /home/marius/Documents/dynamic-codesign
+PWD /Users/marius/Documents/git repos/dynamic-codesign
 INPUT /usr/local/texlive/2021/texmf.cnf
 INPUT /usr/local/texlive/2021/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /home/marius/Documents/dynamic-codesign/dynamic codesign in poly.tex
-OUTPUT dynamic codesign in poly.log
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.tex
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.log
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
@@ -1101,12 +1101,12 @@ INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libr
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfadings.code.tex
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code.tex
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code.tex
-OUTPUT dynamic codesign in poly.pdf
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.pdf
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/tcolorbox/tcbposter.code.tex
-INPUT ./dynamic codesign in poly.aux
-INPUT dynamic codesign in poly.aux
-INPUT dynamic codesign in poly.aux
-OUTPUT dynamic codesign in poly.aux
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.aux
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.aux
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.aux
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.aux
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1165,17 +1165,17 @@ INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestri
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-INPUT ./dynamic codesign in poly.out
-INPUT dynamic codesign in poly.out
-INPUT ./dynamic codesign in poly.out
-INPUT dynamic codesign in poly.out
-INPUT ./dynamic codesign in poly.out
-INPUT dynamic codesign in poly.out
-INPUT ./dynamic codesign in poly.out
-INPUT dynamic codesign in poly.out
-INPUT ./dynamic codesign in poly.out
-INPUT ./dynamic codesign in poly.out
-OUTPUT dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx
@@ -1193,7 +1193,7 @@ INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3kernel/expl3.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-OUTPUT dynamic_codesign_in_poly-blx.bib
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic_codesign_in_poly-blx.bib
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -1217,9 +1217,9 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm1
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT ./dynamic codesign in poly.toc
-INPUT dynamic codesign in poly.toc
-INPUT dynamic codesign in poly.toc
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.toc
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.toc
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.toc
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
@@ -1242,7 +1242,7 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
-OUTPUT dynamic codesign in poly.toc
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.toc
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/ueus.fd
@@ -1260,11 +1260,11 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/euler/eusm10.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/euler/eusm10.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/euler/eusm7.tfm
-INPUT dynamic codesign in poly.aux
-INPUT ./dynamic codesign in poly.out
-INPUT ./dynamic codesign in poly.out
-INPUT dynamic codesign in poly.run.xml
-OUTPUT dynamic codesign in poly.run.xml
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.aux
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.out
+INPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.run.xml
+OUTPUT /Users/marius/Documents/git repos/dynamic-codesign/dynamic codesign in poly.run.xml
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
