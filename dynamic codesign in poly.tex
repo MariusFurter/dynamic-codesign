@@ -231,7 +231,7 @@ $S y^S \rightarrow O y^I$. We obtain mode-dependent systems by generalizing the 
 
 To specify a map $\sum_{s \in S} y^S \cong S y^S \rightarrow \sum_{j \in q(1)} y^{q[j]}$ we must give a function $f: S \rightarrow q(1)$ on positions and a dependent function $f^\sharp: (s \in S) \rightarrow q[f(s)] \rightarrow S$ on directions. We still think of the elements of $q(1)$ as outputs. The passback function $f^\sharp$ now additionally takes into account what the current output is, since it goes from $q[f(s)] \rightarrow S$ for each $s \in S$. In other words, the possible inputs a system can receive now depend on what the current output is.
 
-\section{Codesign in \textsf{Poly}}
+\section{Codesign in \textsf{Poly} via lower sets}
 
 \subsection{Preliminaries}
 Let $P$ be a preorder whose objects we interpret as resources and whose relation $a \leq b$ means that being able to provide $b$ implies being able to provide $a$. A feasibility relation $\Phi: F \prof R$ is then a monotone function $\op{F} \times R \rightarrow \mathsf{Bool}$. Observe that
@@ -296,17 +296,44 @@ To apply the above top codesign, we simply specialize the functions $f_i: A_i \r
 
 \end{tcexample}
 
-We can think of a vanilla codesign problem as a time-invariant system as in Example~\ref{ex:time-inv-sys}. So there is a way to map any object in \textsf{DP} into poly using that construction. A nice feature of embedding codesign in \textsf{Poly} is that we can use the operations present there to build larger systems in an intuitive manner.
+The problem with the above framework is that it is not possible to express the situation where a given resource $r$ can be converted either $f$ or $g$ if $f,g$ are not part of the same time-set $F_i$. This lead me to rethink the above approach and come up with a better description.
 
-\subsubsection{Parallel Product}
-Suppose we have two systems $\Phi := (T^\Phi, \varphi_t :\low R^\Phi_i \rightarrow \low F^\Phi_i, u^\Phi_t) $ and $\Psi := (T^\Psi, \psi_t :\low R^\Psi_i \rightarrow \low F^\Psi_i, u^\Psi_t) $. There parallel product has signature
-$$(S^\Phi \times S^\Psi) y^{(S^\Phi \times S^\Psi)} \rightarrow \sum_{t \in T^\Phi}\sum_{f \in \low F^\Phi_t} \sum_{s \in T^\Psi} \sum_{g \in \low F^\Psi_s} y^{\low R^\Phi_t \times \low R^\Psi_s} \cong \sum_{(t,s) \in T^\Phi \times T^\Psi} (\low R^\Phi_t \times \low R^\Psi_s) y^{\low R^\Phi_t \times \low R^\Psi_s}  $$
-and has on positions map $((\varphi_{u^\Phi_t(r)}, \varphi_t(r)),(\psi_{u^\Psi_t(r')}, \psi_t(r'))) \mapsto (\varphi_t(r), \psi(r'))$ and for $s = ((\varphi_t, x),(\psi_{t'}, x')$ it has on-directions map $(r,s) \mapsto ((\varphi_{u^\Phi_t(r)}, \varphi_t(r)),(\psi_{u^\Psi_{t'}(s)}, \psi(s))$.
+\section{Codesign in \textsf{Poly} via parameterized systems}
+The basic idea is that an feasibility relation must be realized by some machine which predictably converts input into output. Such a machine may have various settings that allow it to convert a given resource into several different products. If we assume that we can change the settings of the machine at will (or the service provider takes care of this), we can abstract over the settings and simply state that a resource can be converted to several products according to our choosing. After this abstraction, it looks like our machine is non-deterministic (relational), when in fact we are simply aggregating its various deterministic modes of operation.
 
-\subsubsection{Composition}
+Concretely, we will decompose a feasibility relation into a union of functions. Each of these functions will be implemented as one setting of a parameterized machine. We can then sum over the parameters to recover the feasibility relation. In this way, classic codesign will turn out to be steady-state analysis of certain time-invariant systems.
+
+\subsection{Codesign as steady-state analysis of time-invariant systems}
+Let $\Phi: R \prof F$ be a feasibility relation. Write $\Phi = \bigcup_{i \in I} \varphi_i$, where $\varphi_i: R_i \rightarrow F$ are monotone maps. In general there are many ways of doing this. It will turn out to be immaterial what decomposition is chosen, but having a smaller index set $I$ is preferable. The minimal size of $I$ is determined by $\max_{r \in R}{| \{f : \Phi(r,f) \} |}$.
+
+We will now use the $\varphi_i$ to construct a parametrized mode-dependent system which takes inputs $(i, r) \in I \times R_i$ and outputs $\varphi_i(r)$. Formally we set $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_i \}$, define the on-positions map to be the identity $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and let the on-directions map be $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$. 
+
+In words, the system's states are transformed resources along with the current parameter setting. The systems simply outputs its state. On update, if the system is in setting $i$, it takes a resource $r \in R_i$ (mode-dependence allows us to impose this constraint) and a new parameter setting $j$. It then transforms the resource into $\varphi_i(r)$ using the map corresponding to its setting and then updates its setting $i \rightsquigarrow j$.
+
+\begin{tcexample}{Apples and Oranges}{apple-orange}
+
+\end{tcexample}
+
+We will now look at the steady-states of our system. For this we first need to define charts and behaviors for our mode-dependent systems.
+
+\begin{tcdefinition}{Chart}{chart}
+	Let $\lens{A^-_{a \in A^+}}{A^+}$ and $\lens{B^-_{b \in B^+}}{B^+}$ be dependent sets. Then a chart $\lens{f_\flat}{f} \colon \lens{A^-_{a \in A^+}}{A^+} \rightrightarrows \lens{B^-_{b \in B^+}}{B^+}$ consists an on-position function $f \colon A^+ \rightarrow B^+$ and an a family of on-direction functions $f_{\flat,a} \colon A^-_a \rightarrow B^-_{f(a)}$.
+\end{tcdefinition}
+
+\begin{tcdefinition}{Behavior}{behavior}
+	Let $\mc{S}$ and $\mc{T}$ be mode-dependent systems and $$\lens{f_\flat}{f} \colon \lens{I^S_{o \in O^S}}{O^S} \rightrightarrows \lens{I^T_{o \in O^T}}{O^T}$$
+	a chart between their interfaces. An \emph{$\lens{f_\flat}{f}$-behavior of shape $\mc{S}$ in $\mc{T}$} is a map $\phi: S \rightarrow T$ such that for all $s \in S$ and $i \in I^S_{out_S(s)}$
+	$$out_T(\phi(s)) = f(out_S(s)), $$
+	$$\phi(up_S(s,i)) = up_T(f_{\flat,out_S(S)}(i)).$$
+\end{tcdefinition}
+
+\begin{tcdefinition}{Steady-state}{steady-state}
+	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ and consider the system $\mc{B} \colon \lens{*}{*} \leftrightarrows \lens{*}{*}$ whose maps are all trivial. A chart $\lens{f_\flat}{f} \colon \lens{*}{*} \rightrightarrows \lens{I_{o \in O}}{O}$ consists of functions $f \colon * \rightarrow O$ and $f_{\flat,*} \colon * \rightarrow I_{f(*)}$. In other words, we a simply selecting $o \in O$ and $i \in I_o$. 
+
+	An $i,o$-steady-state now consists of an $\lens{i}{o}$-behavior of shape $\mc{B}$ in $\mc{S}$. This is a function $\phi \colon * \rightarrow S$, which we will identify with $\phi(*) = s \in S$, such that for all $x \in *$ and $i \in *$ we have
+	$$out(s) = o, $$
+	$$s = up(s,i).$$
+\end{tcdefinition}
 
 
-\subsection{Recovering codesign problem}
-
-How do trajectories compose?
 \end{document}
