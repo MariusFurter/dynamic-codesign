@@ -20,3 +20,5 @@
 \contentsline {section}{\numberline {3}Codesign in \textsf {Poly} via parameterized systems}{7}{section.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1}Codesign as steady-state analysis of time-invariant systems}{7}{subsection.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2}Introducing dynamics}{9}{subsection.3.2}%

@@ -324,7 +324,7 @@ We will now look at the steady-states of our system. For this we first need to d
 	Let $\mc{S}$ and $\mc{T}$ be mode-dependent systems and $$\lens{f_\flat}{f} \colon \lens{I^S_{o \in O^S}}{O^S} \rightrightarrows \lens{I^T_{o \in O^T}}{O^T}$$
 	a chart between their interfaces. An \emph{$\lens{f_\flat}{f}$-behavior of shape $\mc{S}$ in $\mc{T}$} is a map $\phi: S \rightarrow T$ such that for all $s \in S$ and $i \in I^S_{out_S(s)}$
 	$$out_T(\phi(s)) = f(out_S(s)), $$
-	$$\phi(up_S(s,i)) = up_T(f_{\flat,out_S(S)}(i)).$$
+	$$\phi(up_S(s,i)) = up_T(\phi(s), f_{\flat,out_S(s)}(i)).$$
 \end{tcdefinition}
 
 \begin{tcdefinition}{Steady-state}{steady-state}
@@ -335,5 +335,16 @@ We will now look at the steady-states of our system. For this we first need to d
 	$$s = up(s,i).$$
 \end{tcdefinition}
 
+\subsection{Introducing dynamics}
+
+\begin{tcdefinition}{Trajectories}{trajectories}
+	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ and consider the system $\mc{T} \colon \lens{\mathbb{N}_{n \in \mathbb{N}}}{\mathbb{N}} \leftrightarrows \lens{*}{\mathbb{N}}$ whose on-positions map is the identity and whose on-directions map sends $n \mapsto * \mapsto n+1$.
+
+	A chart $\lens{f_\flat}{f} \colon \lens{*}{\mathbb{N}} \rightrightarrows \lens{I_{o \in O}}{O}$ consists of a sequence $f \colon \mathbb{N} \rightarrow O$ and a family of maps $f_{\flat,n} \colon * \rightarrow I_{f(n)}$. We can identify the latter with a sequence $(a_0, a_1, \ldots)$ where each $a_i \in I_{f(i)}$.
+
+	Given sequences $o \in \prod_{n \in \mathbb{N}} O$ and $i \in \prod_{n \in \mathbb{N}} I_{o(n)}$, an $i,o$ trajectory in $\mc{S}$ consists of a sequence $s \colon \mathbb{N} \rightarrow S$ such that for all $n \in \mathbb{N}$ we have
+	$$out(s(n)) = o(n), $$
+	$$s(n+1) = up(s(n), i(n)).$$
+\end{tcdefinition}
 
 \end{document}
