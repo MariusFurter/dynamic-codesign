@@ -113,13 +113,13 @@ citestyle=alphabetic]{biblatex}
 \newtheorem{remark}[counter]{Remark}
 
 \usepackage[most]{tcolorbox}
-\newtcbtheorem[number within=section]{tcdefinition}{Definition}{colback=paleteal,colframe=NavyBlue,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{def}
+\newtcbtheorem[number within=section]{tcdefinition}{Definition}{colback=paleteal,colframe=NavyBlue,fonttitle=\bfseries, breakable, enhanced}{def}
 
-\newtcbtheorem[number within=section, use counter from = tcdefinition]{tctheorem}{Theorem}{colback=paleteal,colframe=NavyBlue,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{thm}
+\newtcbtheorem[number within=section, use counter from = tcdefinition]{tctheorem}{Theorem}{colback=paleteal,colframe=NavyBlue,fonttitle=\bfseries, breakable, enhanced}{thm}
 
-\newtcbtheorem[number within=section, use counter from = tcdefinition]{tcexample}{Example}{colback=paleorange,colframe=BurntOrange,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{ex}
+\newtcbtheorem[number within=section, use counter from = tcdefinition]{tcexample}{Example}{colback=paleorange,colframe=BurntOrange,fonttitle=\bfseries, breakable, enhanced}{ex}
 
-\newtcbtheorem[]{tcproblem}{Problem}{colback=palered,colframe=Bittersweet,fonttitle=\bfseries, breakable, enhanced, boxsep = 1pt, left = 5pt, right = 5pt}{pr}
+\newtcbtheorem[]{tcproblem}{Problem}{colback=palered,colframe=Bittersweet,fonttitle=\bfseries, breakable, enhanced}{pr}
 
 \newcommand{\zuz}[1]{%
 	
@@ -381,7 +381,6 @@ and on-directions function
 $$ x \mapsto \begin{cases} i \in I_x \mapsto up_S(x,i) & x \in S \\ j \in J_x \mapsto up_T(x,j) & x \in T. \end{cases}$$
 The steady-state matrix of this system will satisfy 
 $$M_{S \sqcup T}(x,y) = \begin{cases} M_S(x,y) & y \in O, x \in I_o \\  M_T(x,y) & y \in U, x \in J_u \\ \emptyset & \text{else.} \end{cases} = M_S \oplus M_T.$$
-
 
 \subsection{Introducing dynamics}
 
