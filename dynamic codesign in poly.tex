@@ -306,7 +306,7 @@ Concretely, we will decompose a feasibility relation into a union of functions. 
 \subsection{Codesign as steady-state analysis of time-invariant systems}
 Let $\Phi: R \prof F$ be a feasibility relation. Write $\Phi = \bigcup_{i \in I} \varphi_i$, where $\varphi_i: R_i \rightarrow F$ are monotone maps. In general there are many ways of doing this. It will turn out to be immaterial what decomposition is chosen, but having a smaller index set $I$ is preferable. The minimal size of $I$ is determined by $\max_{r \in R}{| \{f : \Phi(r,f) \} |}$.
 
-We will now use the $\varphi_i$ to construct a parametrized mode-dependent system which takes inputs $(i, r) \in I \times R_i$ and outputs $\varphi_i(r)$. Formally we set $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_i \}$, define the on-positions map to be the identity $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and let the on-directions map be $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$. 
+We will now use the $\varphi_i$ to construct a parametrized mode-dependent system which takes inputs $(i, r) \in I \times R_i$ and outputs $\varphi_i(r)$. Formally we set $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, define the on-positions map to be the identity $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and let the on-directions map be $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$. 
 
 In words, the system's states are transformed resources along with the current parameter setting. The systems simply outputs its state. On update, if the system is in setting $i$, it takes a resource $r \in R_i$ (mode-dependence allows us to impose this constraint) and a new parameter setting $j$. It then transforms the resource into $\varphi_i(r)$ using the map corresponding to its setting and then updates its setting $i \rightsquigarrow j$.
 
@@ -314,6 +314,7 @@ In words, the system's states are transformed resources along with the current p
 
 \end{tcexample}
 
+\subsubsection{Steady-state matrices}
 We will now look at the steady-states of our system. For this we first need to define charts and behaviors for our mode-dependent systems.
 
 \begin{tcdefinition}{Chart}{chart}
@@ -335,6 +336,53 @@ We will now look at the steady-states of our system. For this we first need to d
 	$$s = up(s,i).$$
 \end{tcdefinition}
 
+For $\mc{S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ we can gather together all steady-states in a dependent function $M: O \rightarrow I_{o \in O} \rightarrow \mathsf{P}S$ which assigns each $i,o$-pair the set of $i,o$-steady-states. We can think of $M$ as a matrix which has entries $m_{i,o}$ for $o \in O$ and $i \in I_o$.
+
+It turns out that steady-state matrices compose according to matrix arithmetic. In particular, if we put two systems in parallel we have $M_{S \otimes T} = M_S \otimes M_T $ where $(A \otimes B)_{(i,i'),(o,o')} = A_{i,o} \times B_{i',o'}$ is the Kronecker product. Moreover, if we feed the output of $S$ into $T$, the resulting system $S \triangleleft T$ has steady states $M_{S \triangleleft T} = M_S \cdot M_T$ where $(A \cdot B)_{i,j} := \sum_{k} A_{i,k} \times B_{k,j}$ is matrix multiplication.
+
+The following partial trace operation will be of highest importance: Consider a system $\mc{S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{X \times I_{o \in O} }{X \times O}$ where the set $X$ serves as input under any current output. We can then wire the $X$-output of the system back into its $X$-input to obtain the system $\mc{S}^\dagger$, illustrated below:
+\begin{center}
+\includegraphics[width = 0.4\textwidth]{trace.jpg}
+\end{center}
+The update and output functions are now modified to $up_\dagger(s) = up(s,\pi_1(out(s)),i)$ and $out_\dagger(s) = \pi_2(out(s))$.
+
+Let's think about what happens to the steady-states of $\mc{S}$ under this operation. We claim that $M_{\mc{S}^\dagger}(i,o) = \sum_{x \in X} M_{\mc{S}}(x,i)(x,o)$. To see this, consider and $i,o$-steady-state $s$ of $\mc{S}^\dagger$. This satisfies $out_\dagger(s) = o$ and $up_\dagger(s,i) = s$. By definition $out_\dagger(s) = \pi_2(out(s))$, so $out(s) = (x,o)$ for some $x$. Moreover, $s = up_\dagger(s,i) = up(s,(\pi_1(out_s),i)) = up(s,(x,i))$, so $s$ is also an $(x,i),(x,o)$-steady-state of $\mc{S}$. Conversely, any $(x,i),(x,o)$-steady-state $s$ satisfies $out(s) = (x,o)$ and $up(s,(x,i)) = s$. Hence $out_\dagger(s) = o$ and $up_\dagger(s,i) = up(s,(\pi_1(out(s)),i)) = up(s,(x,i)) = s$. So $s$ is an $i,o$-steady-state of $\mc{S}^\dagger$. 
+
+\subsubsection{Back to codesign}
+We can now apply the above ideas to the parametrized system $\mc{P}$ representing to feasibility relation $\Phi: R \prof F$. Recall that we wrote $\Phi = \bigcup_{i \in I} \varphi_i$ as a union of monotone functions $\varphi_i \colon R_i \rightarrow F$. Then the system takes inputs $(i, r) \in I \times R_i$ and outputs $\varphi_i(r)$. It has states $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, with identity on-positions map $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and on-directions map $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$.
+
+Observe that an $(i,r),(j,f)$-steady-state of $\mc{P}$ is $s = (i,\varphi_j(r))$ satisfying $(j,f) = out(s) = (i,\varphi_j(r))$ and $s = up(s,(i,r)) = (i,\varphi_i(r))$. Hence $j=i$ and $f = \varphi_i(r)$. Therefore
+$$M_\mc{P}(i,r)(j,f) = \begin{cases} (i,\varphi_i(r)), & \text{if } i=j \text{ and } \varphi_i(r) = f, \\ \emptyset, & \text{else.} \end{cases} $$
+
+We now plug the output parameter $i \in I$ back as input into the system to get $\mc{P}^\dagger$:
+\begin{center}
+	\includegraphics[width = 0.4\textwidth]{parameter-trace.jpg}
+\end{center}
+
+The steady states of $\mc{P}^\dagger$ are given by
+\begin{IEEEeqnarray*}{rCl}
+	M_{\mc{P}^\dagger}(r,f) &=& \sum_{i \in I} M_\mc{P}(i,r)(i,f) \\
+	&=& \sum_{i \in I} \begin{cases} (i,\varphi_i(r)), & \text{if } i=j \text{ and } \varphi_i(r) = f, \\ \emptyset, & \text{else.} \end{cases} \\
+	&=& \sum_{i \in I} \{(i,\varphi_i(r)) : \varphi_i(r) = f\}.
+\end{IEEEeqnarray*}
+Hence $M_{\mc{P}^\dagger}(r,f)$ is non-empty iff $\varphi_i(r) = f$ for some $i$ iff $\Phi(r,f)$ is feasible. So $M_{\mc{P}^\dagger}$ is essentially just the matrix associated to the relation $\Phi$ (although the matrix could contain sets with multiple elements if our decomposition of $\Phi$ was not disjoint). We will interpret $M_{\mc{P}^\dagger}(r,f)$ as the set of ways to transform $r$ into $f$. Hence we have shown that we can encode a feasibility relation $\Phi$ into a system $\mc{P}$ whose steady states are precisely the transformations of $\Phi$.
+
+Now let $\mc{P}$ be a system representing $\Phi: R \prof F$ and $\mc{Q}$ be a system representing $\Psi: F \prof G$. The matrix of steady-states of the sequential composite can be calculated by $M_{\mc{P} \triangleleft \mc{Q}} = M_{\mc{P}} \cdot M_\mc{Q}$ where $M_{\mc{P}} \cdot M_\mc{Q}(r,g) = \sum_{f \in F} M_{\mc{P}}(r,f) \times M_\mc{Q}(r,g)$. On the other hand, $\Psi \circ \Phi (r,g) = \bigvee_{f \in F} \Phi(r,f) \wedge \Psi(f,g)$. So the sequential composite $\mc{P} \triangleleft \mc{Q}$ has almost the same steady-states as a system representing $\Psi \circ \Phi$. The only difference is that the sequential composition of systems also keeps track of the possible ways on can transform $r$ into $g$.
+
+We also have compatibility with the parallel product: If $\mc{P}$ represents $\Phi: R \prof F$ and $\mc{Q}$ represents $\Psi: R' \prof F'$, then the steady-states of the parallel product $\mc{P} \otimes \mc{Q}$ are given by $M_{P \otimes Q}((r,r'),(f,f')) = M_P(r,f) \times M_Q(r',f')$. On the other hand, $\Phi \otimes \Psi ((r,r'),(f,f')) = \Phi(r,f) \wedge \Psi(r',f')$. This shows that the $M_{P \otimes Q}$ is the same as the steady-state matrix of a system representing $\Phi \otimes \Psi$.
+
+\begin{question}
+	What system has the disjoint union of the steady states of its components? This would amount to taking the direct sum of the steady-state matrices.
+\end{question}
+
+Answer: Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ and $\mc{T} := \lens{up_T}{out_T} \colon \lens{T_{t \in T}}{T} \leftrightarrows \lens{J_{u \in U}}{U}$. Define $\mc{S} \sqcup \mc{T} \colon \lens{S \sqcup T}{S \sqcup T} \leftrightarrows \lens{I_o \sqcup J_u}{O \sqcup U}$ with on-positions function 
+$$x \mapsto \begin{cases} out_S(x) & x \in S \\ out_T(x) & x \in T. \end{cases}$$ 
+and on-directions function 
+$$ x \mapsto \begin{cases} i \in I_x \mapsto up_S(x,i) & x \in S \\ j \in J_x \mapsto up_T(x,j) & x \in T. \end{cases}$$
+The steady-state matrix of this system will satisfy 
+$$M_{S \sqcup T}(x,y) = \begin{cases} M_S(x,y) & y \in O, x \in I_o \\  M_T(x,y) & y \in U, x \in J_u \\ \emptyset & \text{else.} \end{cases} = M_S \oplus M_T.$$
+
+
 \subsection{Introducing dynamics}
 
 \begin{tcdefinition}{Trajectories}{trajectories}
@@ -342,7 +390,7 @@ We will now look at the steady-states of our system. For this we first need to d
 
 	A chart $\lens{f_\flat}{f} \colon \lens{*}{\mathbb{N}} \rightrightarrows \lens{I_{o \in O}}{O}$ consists of a sequence $f \colon \mathbb{N} \rightarrow O$ and a family of maps $f_{\flat,n} \colon * \rightarrow I_{f(n)}$. We can identify the latter with a sequence $(a_0, a_1, \ldots)$ where each $a_i \in I_{f(i)}$.
 
-	Given sequences $o \in \prod_{n \in \mathbb{N}} O$ and $i \in \prod_{n \in \mathbb{N}} I_{o(n)}$, an $i,o$ trajectory in $\mc{S}$ consists of a sequence $s \colon \mathbb{N} \rightarrow S$ such that for all $n \in \mathbb{N}$ we have
+	Given sequences $o \in \prod_{n \in \mathbb{N}} O$ and $i \in \prod_{n \in \mathbb{N}} I_{o(n)}$, an $i,o$-trajectory in $\mc{S}$ consists of a sequence $s \colon \mathbb{N} \rightarrow S$ such that for all $n \in \mathbb{N}$ we have
 	$$out(s(n)) = o(n), $$
 	$$s(n+1) = up(s(n), i(n)).$$
 \end{tcdefinition}
