@@ -172,9 +172,15 @@ citestyle=alphabetic]{biblatex}
 	\slashedarrowfill@\relbar\relbar\mapstochar\rightarrow}
 \newcommand\xslashedrightarrow[2][]{%
 	\ext@arrow 0055{\rightslashedarrowfill@}{#1}{#2}}
+
+\def\leftslashedarrowfill@{%
+	\slashedarrowfill@\relbar\relbar\mapstochar\leftarrow}
+\newcommand\xslashedleftarrow[2][]{%
+	\ext@arrow 0055{\leftslashedarrowfill@}{#1}{#2}}
 \makeatother
 
 \newcommand{\prof}{\xslashedrightarrow{}}
+\newcommand{\bprof}{\xslashedleftarrow{}}
 
 \title{Dynamic codesign in \textsf{Poly}}
 \author{Marius Furter}
@@ -198,13 +204,25 @@ Since polynomial functors are functors, morphisms between them are given by natu
 	&\cong& \prod_{i \in p(1)} \mathsf{Poly}(y^{p[i]},\sum_{j \in q(1)} y^{q[j]}) \\
 	&\cong& \prod_{i \in p(1)} \sum_{j \in q(1)} {p[i]}^{q[j]}
 \end{IEEEeqnarray*}
-The latter expression can be interpreted in terms of dependent products and sums: For every $i \in p(1)$ there exists $j \in q(1)$ with associated function $q[j] \rightarrow p[i]$. In other words, a morphism in $\mathsf{Poly}$ may be identified with a function $f: p(1) \rightarrow q(1)$ on positions, along with a family of functions $(f_i)_{i \in p(1)}$ where $f_i: q[f(i)] \rightarrow p[i]$ is a function on directions. This family can be expressed more concisely by assembling it into a dependent function $f^\sharp: (i \in I) \rightarrow q[f(i)] \rightarrow p[i]$.
+The latter expression can be interpreted in terms of dependent products and sums: For every $i \in p(1)$ there exists $j \in q(1)$ with associated function $q[j] \rightarrow p[i]$. In other words, a morphism in $\mathsf{Poly}$ may be identified with a function $f: p(1) \rightarrow q(1)$ on positions, along with a family of functions $(f_i)_{i \in p(1)}$ where $f_i: q[f(i)] \rightarrow p[i]$ is a function on directions. This family can be expressed more concisely by assembling it into a dependent function $f^\sharp: (i \in p(1)) \rightarrow q[f(i)] \rightarrow p[i]$.
 
 \subsection{Lenses in $\mathsf{Poly}$}
 We can express lenses in $\mathsf{Set}$ within $\mathsf{Poly}$ as maps between special types of polynomials. Let us generalize the term \emph{monomial} to include polynomials of the form $\sum_{i \in S} y^{A} \cong S y^A$, where the direction sets are independent of the positions. Now consider a morphism
 $$\lens{f^\sharp}{f} :A^+ y^{A^-} \rightarrow B^+ y^{B^-} .$$
 This consists of an on-positions function $f: A^+ \rightarrow B^+$ and an on-directions dependent function $f^\sharp : (a^+ \in A^+) \rightarrow B^- \rightarrow A^-$. However, since the direction sets are independent of the positions, this is just a regular function and can be curried to $f^\sharp: A^+ \times B^- \rightarrow A^-$. We now recognize that this is just a lens
 $$\lens{f^\sharp}{f} : \lens{A^-}{A^+} \leftrightarrows \lens{B^-}{B^+}.$$
+
+\subsection{Mode-dependent lenses}
+More generally, we can think of a morphism in \textsf{Poly} as a mode-dependent lens. For this we write a morphism $\sum_{i \in p(1)} y^{p[i]} \rightarrow \sum_{j \in q(1)} y^{q[j]}$ in lens notation:
+$$\lens{f^\sharp}{f} \colon \lens{(p[i])_{i \in p(1)}}{p(1)} \leftrightarrows \lens{(q[j])_{j \in q(1)}}{q(1)}. $$
+The sets on the bottom of the brackets are the positions, the family of sets on top are the corresponding directions, $f \colon p(1) \rightarrow q(1)$ is the on-positions function and $f^\sharp \colon (i \in p(1)) \rightarrow q[f(i)] \rightarrow p[i]$ is the on-directions dependent function. The above can be formalized as a generalized lens (see \cite[Chapter 2.6]{cat_sys_book}).
+
+\subsection{Mode-dependent systems}
+A mode-dependent \emph{system} in \textsf{Poly} is a morphism of the form $S y^S \rightarrow q$, where $q$ is an arbitrary polynomial. To specify a map $\sum_{s \in S} y^S \cong S y^S \rightarrow \sum_{j \in q(1)} y^{q[j]}$ we must give a function $out: S \rightarrow q(1)$ on positions and a dependent function $up: (s \in S) \rightarrow q[f(s)] \rightarrow S$ on directions.
+
+Alternatively, we can view mode-dependent systems as mode-dependent lense having type
+$$ \lens{up}{out} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}.$$
+In other words, mode-dependent systems are like Moore machines where the possible inputs a system can receive now depend on what the current output is.
 
 \subsection{Operations in $\mathsf{Poly}$}
 $\mathsf{Poly}$ has four monoidal operations $+, \times,\circ,$ and $\otimes$, where $\times$ and $\otimes$ are monoidal closed. The first two are simply the categorical coproduct and product, respectively. For $p = \sum_{i \in p(1)} y^{p[i]}$ and $q = \sum_{j \in q(1)} y^{q[j]}$ these are given by the familiar addition and multiplication of polynomials:
@@ -223,15 +241,8 @@ we get a lens
 $$(A^+_1 \times A^+_2)  y^{A^-_1 \times A^-_2} \rightarrow (B^+_1 \times B^+_2)y^{B^-_1 \times B^-_2}$$
 which recovers the usual tensor product of lenses.
 
-\subsection{Mode-dependence}
-We have seen that we can model lenses as polynomial morphisms 
-$$\lens{f^\sharp}{f} :A^+ y^{A^-} \rightarrow B^+ y^{B^-} .$$
-Translating a lens representing a dynamical system thus yields a morphism
-$S y^S \rightarrow O y^I$. We obtain mode-dependent systems by generalizing the former to morphisms of the type $S y^S \rightarrow q$, where $q$ is an arbitrary polynomial. Let us see how this differs from what we had before.
-
-To specify a map $\sum_{s \in S} y^S \cong S y^S \rightarrow \sum_{j \in q(1)} y^{q[j]}$ we must give a function $f: S \rightarrow q(1)$ on positions and a dependent function $f^\sharp: (s \in S) \rightarrow q[f(s)] \rightarrow S$ on directions. We still think of the elements of $q(1)$ as outputs. The passback function $f^\sharp$ now additionally takes into account what the current output is, since it goes from $q[f(s)] \rightarrow S$ for each $s \in S$. In other words, the possible inputs a system can receive now depend on what the current output is.
-
 \section{Codesign in \textsf{Poly} via lower sets}
+In this approach, a feasibility relation is viewed as a function by using the correspondence between feasibility relations and union preserving monotones between lower set preorders. Unfortunately, this construction cannot account for resources which can yield functionalities at different times. It is refined in Section~\ref{sec:parameterized-systems}.
 
 \subsection{Preliminaries}
 Let $P$ be a preorder whose objects we interpret as resources and whose relation $a \leq b$ means that being able to provide $b$ implies being able to provide $a$. A feasibility relation $\Phi: F \prof R$ is then a monotone function $\op{F} \times R \rightarrow \mathsf{Bool}$. Observe that
@@ -243,7 +254,7 @@ Consider a monotone map $\varphi: \low R \rightarrow \low F$ which preserves uni
 $$ \hom(R, \low F) \cong \{\varphi \colon \low R \rightarrow \low F : \varphi \text{ monotone and preserves unions.}\} $$
 Combining with the above, this shows that feasibility relation are just union preserving monotone functions $\low R \rightarrow \low F$. Moreover, the composition of such functions is again monotone and preserves unions. This justifies restricting out attention to monotone maps with this special property.
 
-(Late night ramblings, Check this!)(Ordering the lower sets by inclusion makes the union a join. Hence we are considering join-preserving monotone maps in the category of distributive lattices. We can think of the above correspondence as being a functor (show this!) from \textsf{DP} to the category of distributive lattices with join-preserving maps. The fact that there is a bijection between feasibility relations and join-preserving monotone maps shows that it is faithful. By Birkhoff's representation theorem, any finite distributive lattice is isomorphic to the lower sets of some partial order (and hence preorder). Therefore, the functor is also essentially surjective if we restrict our attention to finite design problems and finite distributive lattices.)
+(Late night ramblings, Check this!)(Ordering the lower sets by inclusion makes the union a join. Hence we are considering join-preserving monotone maps in the category of distributive lattices. We can think of the above correspondence as being a functor (show this!) from \textsf{DP} to the category of distributive lattices with join-preserving maps. The fact that there is a bijection between feasibility relations and join-preserving monotone maps shows that it is faithful. By Birkhoff's representation theorem, any finite distributive lattice is isomorphic to the lower sets of some partial order (and hence preorder). Therefore, the functor is also essentially surjective if we restrict our attention to finite design problems and finite distributive lattices. This would show that the category of finite design problems is equivalent to the category of finite distributive lattices.)
 
 \subsection{Basic Setup}
 Let $f_t: A_t \rightarrow B_t$ be a family of functions between sets indexed by $t \in T$. Moreover, let $u_t: A_t \rightarrow T$ be a family of function indexed by $T$. We interpret $T$ as a (branching) timeline. If at time $t \in T$ we choose to transform $a \in A_t$ to $f_t(a) \in B_t$, then the timeline advances to $u_t(a) \in T$. 
@@ -298,17 +309,17 @@ To apply the above top codesign, we simply specialize the functions $f_i: A_i \r
 
 The problem with the above framework is that it is not possible to express the situation where a given resource $r$ can be converted either $f$ or $g$ if $f,g$ are not part of the same time-set $F_i$. This led me to rethink the above approach and come up with a better description.
 
-\section{Codesign in \textsf{Poly} via parameterized systems}
+\section{Codesign in \textsf{Poly} via parameterized systems}\label{sec:parameterized-systems}
 The basic idea is that an feasibility relation must be realized by some machine which predictably converts input into output. Such a machine may have various settings that allow it to convert a given resource into several different products. If we assume that we can change the settings of the machine at will (or the service provider takes care of this), we can abstract over the settings and simply state that a resource can be converted to several products according to our choosing. After this abstraction, it looks like our machine is non-deterministic (relational), when in fact we are simply aggregating its various deterministic modes of operation.
 
 Concretely, we will decompose a feasibility relation into a union of functions. Each of these functions will be implemented as one setting of a parameterized machine. We can then sum over the parameters to recover the feasibility relation. In this way, classic codesign will turn out to be steady-state analysis of certain time-invariant systems.
 
 \subsection{Codesign as steady-state analysis of time-invariant systems}
-Let $\Phi: R \prof F$ be a feasibility relation. Write $\Phi = \bigcup_{i \in I} \varphi_i$, where $\varphi_i: R_i \rightarrow F$ are monotone maps. In general there are many ways of doing this. It will turn out to be immaterial what decomposition is chosen, but having a smaller index set $I$ is preferable. The minimal size of $I$ is determined by $\max_{r \in R}{| \{f : \Phi(r,f) \} |}$.
+Let $\Phi: R \bprof F$ be a feasibility relation. Write $\Phi = \bigcup_{i \in I} \varphi_i$, where $\varphi_i: R_i \rightarrow F$ are monotone maps. We will call the $\bigcup_{i \in I} \varphi_i$ a \emph{realization} of $\Phi$ and each $\varphi_i$ a \emph{realizer}. In general there are many realizations of a feasibility relation. It will turn out to be immaterial what decomposition is chosen, but having a smaller index set $I$ is preferable. The minimal size of $I$ is determined by $\max_{r \in R}{| \{f : \Phi(r,f) \} |}$.
 
-We will now use the $\varphi_i$ to construct a parametrized mode-dependent system which takes inputs $(i, r) \in I \times R_i$ and outputs $\varphi_i(r)$. Formally we set $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, define the on-positions map to be the identity $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and let the on-directions map be $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$. 
+We will now use the $\varphi_i$ to construct a parametrized mode-dependent system $\mc{P}$ which takes inputs $(i, r) \in (I \times R_i)_{i \in I}$ and outputs $\varphi_i(r) \in F$. Formally we set $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, define the on-positions map to be the identity $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and let the on-directions map be $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$. 
 
-In words, the system's states are transformed resources along with the current parameter setting. The systems simply outputs its state. On update, if the system is in setting $i$, it takes a resource $r \in R_i$ (mode-dependence allows us to impose this constraint) and a new parameter setting $j$. It then transforms the resource into $\varphi_i(r)$ using the map corresponding to its setting and then updates its setting $i \rightsquigarrow j$.
+In words, the system's states are transformed resources along with the current parameter setting. The systems simply outputs its state. On update, if the system is in setting $i$, it takes a resource $r \in R_i$ (mode-dependence allows us to impose this constraint) and a new parameter setting $k$. It then transforms the resource into $\varphi_i(r)$ using the map corresponding to its setting and then updates its setting $i \rightsquigarrow k$.
 
 \begin{tcexample}{Apples and Oranges}{apple-orange}
 
@@ -318,40 +329,44 @@ In words, the system's states are transformed resources along with the current p
 We will now look at the steady-states of our system. For this we first need to define charts and behaviors for our mode-dependent systems.
 
 \begin{tcdefinition}{Chart}{chart}
-	Let $\lens{A^-_{a \in A^+}}{A^+}$ and $\lens{B^-_{b \in B^+}}{B^+}$ be dependent sets. Then a chart $\lens{f_\flat}{f} \colon \lens{A^-_{a \in A^+}}{A^+} \rightrightarrows \lens{B^-_{b \in B^+}}{B^+}$ consists an on-position function $f \colon A^+ \rightarrow B^+$ and an a family of on-direction functions $f_{\flat,a} \colon A^-_a \rightarrow B^-_{f(a)}$.
+	Let $\lens{(A^-_a)_{a \in A^+}}{A^+}$ and $\lens{(B^-_b)_{b \in B^+}}{B^+}$ be dependent sets. Then a chart $\lens{f_\flat}{f} \colon \lens{(A^-_a)_{a \in A^+}}{A^+} \rightrightarrows \lens{(B^-_b)_{b \in B^+}}{B^+}$ consists an on-position function $f \colon A^+ \rightarrow B^+$ and an on-directions dependent function $f_\flat \colon (a \in A^+) \rightarrow A^-_a \rightarrow B^-_{f(a)}$.
 \end{tcdefinition}
 
 \begin{tcdefinition}{Behavior}{behavior}
-	Let $\mc{S}$ and $\mc{T}$ be mode-dependent systems and $$\lens{f_\flat}{f} \colon \lens{I^S_{o \in O^S}}{O^S} \rightrightarrows \lens{I^T_{o \in O^T}}{O^T}$$
+	Let $\mc{S}$ and $\mc{T}$ be mode-dependent systems and $$\lens{f_\flat}{f} \colon \lens{(I^S_o)_{o \in O^S}}{O^S} \rightrightarrows \lens{(I^T_o)_{o \in O^T}}{O^T}$$
 	a chart between their interfaces. An \emph{$\lens{f_\flat}{f}$-behavior of shape $\mc{S}$ in $\mc{T}$} is a map $\phi: S \rightarrow T$ such that for all $s \in S$ and $i \in I^S_{out_S(s)}$
 	$$out_T(\phi(s)) = f(out_S(s)), $$
-	$$\phi(up_S(s,i)) = up_T(\phi(s), f_{\flat,out_S(s)}(i)).$$
+	$$\phi(up_S(s,i)) = up_T(\phi(s), f_\flat(out_S(s),i)).$$
 \end{tcdefinition}
 
 \begin{tcdefinition}{Steady-state}{steady-state}
-	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ and consider the system $\mc{B} \colon \lens{*}{*} \leftrightarrows \lens{*}{*}$ whose maps are all trivial. A chart $\lens{f_\flat}{f} \colon \lens{*}{*} \rightrightarrows \lens{I_{o \in O}}{O}$ consists of functions $f \colon * \rightarrow O$ and $f_{\flat,*} \colon * \rightarrow I_{f(*)}$. In other words, we a simply selecting $o \in O$ and $i \in I_o$. 
+	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}$ and consider the system $\mc{B} \colon \lens{*}{*} \leftrightarrows \lens{*}{*}$ whose maps are all trivial. A chart $\lens{f_\flat}{f} \colon \lens{*}{*} \rightrightarrows \lens{(I_o)_{o \in O}}{O}$ consists of functions $f \colon * \rightarrow O$ and $f_\flat \colon * \times * \rightarrow I_{f(*)}$. In other words, we a simply selecting $o \in O$ and $i \in I_o$. 
 
 	An $i,o$-steady-state now consists of an $\lens{i}{o}$-behavior of shape $\mc{B}$ in $\mc{S}$. This is a function $\phi \colon * \rightarrow S$, which we will identify with $\phi(*) = s \in S$, such that for all $x \in *$ and $i \in *$ we have
 	$$out(s) = o, $$
 	$$s = up(s,i).$$
 \end{tcdefinition}
 
-For $\mc{S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ we can gather together all steady-states in a dependent function $M: O \rightarrow I_{o \in O} \rightarrow \mathsf{P}S$ which assigns each $i,o$-pair the set of $i,o$-steady-states. We can think of $M$ as a matrix which has entries $m_{i,o}$ for $o \in O$ and $i \in I_o$.
+For $\mc{S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}$ we can gather together all steady-states in a dependent function $M: (o \in O) \rightarrow I_o \rightarrow \mathsf{P}S$ which assigns each $i,o$-pair the set of $i,o$-steady-states. We can think of $M$ as a matrix which has entries $m_{i,o} := M(o,i)$ for $o \in O$ and $i \in I_o$.
 
-It turns out that steady-state matrices compose according to matrix arithmetic. In particular, if we put two systems in parallel we have $M_{S \otimes T} = M_S \otimes M_T $ where $(A \otimes B)_{(i,i'),(o,o')} = A_{i,o} \times B_{i',o'}$ is the Kronecker product. Moreover, if we feed the output of $S$ into $T$, the resulting system $S \triangleleft T$ has steady states $M_{S \triangleleft T} = M_S \cdot M_T$ where $(A \cdot B)_{i,j} := \sum_{k} A_{i,k} \times B_{k,j}$ is matrix multiplication.
+It turns out that steady-state matrices compose according to matrix arithmetic. In particular, if we put two systems in parallel we have $M_{S \otimes T} = M_S \otimes M_T $ where $(A \otimes B)_{(i,i'),(o,o')} = a_{i,o} \times b_{i',o'}$ is the Kronecker product. Moreover, if we feed the output of $S$ into $T$, the resulting system $S \triangleleft T$ has steady states $M_{S \triangleleft T} = M_S \cdot M_T$ where $(A \cdot B)_{i,j} := \sum_{k} a_{i,k} \times b_{k,j}$ is matrix multiplication.
 
-The following partial trace operation will be of highest importance: Consider a system $\mc{S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{X \times I_{o \in O} }{X \times O}$ where the set $X$ serves as input under any current output. We can then wire the $X$-output of the system back into its $X$-input to obtain the system $\mc{S}^\dagger$, illustrated below:
+The following partial trace operation will be of great importance: Consider a system $\mc{S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(X \times I_o)_{o \in O} }{X \times O}$ where the set $X$ serves as input under any current output. We can then wire the $X$-output of the system back into its $X$-input to obtain the system $\mc{S}^\dagger$, illustrated below:
 \begin{center}
 \includegraphics[width = 0.4\textwidth]{trace.jpg}
 \end{center}
-The update and output functions are now modified to $up_\dagger(s) = up(s,\pi_1(out(s)),i)$ and $out_\dagger(s) = \pi_2(out(s))$.
+Formally this is done by composing $\mc{S}$ with an appropriate wrapper lens that does the rerouting. The effect of this operations is that the update and output functions are modified to 
+$$up_\dagger(s, i) := up(s,\pi_1(out(s)),i),$$ 
+$$out_\dagger(s) := \pi_2(out(s)).$$
 
-Let's think about what happens to the steady-states of $\mc{S}$ under this operation. We claim that $M_{\mc{S}^\dagger}(i,o) = \sum_{x \in X} M_{\mc{S}}(x,i)(x,o)$. To see this, consider and $i,o$-steady-state $s$ of $\mc{S}^\dagger$. This satisfies $out_\dagger(s) = o$ and $up_\dagger(s,i) = s$. By definition $out_\dagger(s) = \pi_2(out(s))$, so $out(s) = (x,o)$ for some $x$. Moreover, $s = up_\dagger(s,i) = up(s,(\pi_1(out_s),i)) = up(s,(x,i))$, so $s$ is also an $(x,i),(x,o)$-steady-state of $\mc{S}$. Conversely, any $(x,i),(x,o)$-steady-state $s$ satisfies $out(s) = (x,o)$ and $up(s,(x,i)) = s$. Hence $out_\dagger(s) = o$ and $up_\dagger(s,i) = up(s,(\pi_1(out(s)),i)) = up(s,(x,i)) = s$. So $s$ is an $i,o$-steady-state of $\mc{S}^\dagger$. 
+Let's think about what happens to the steady-states of $\mc{S}$ under this operation. We claim that the entries of the steady-state matrix of $S^\dagger$ are 
+$$m^{\mc{S}^\dagger}_{i,o} = \sum_{x \in X} m^{\mc{S}}_{(x,i)(x,o)}.$$
+To see this, consider and $i,o$-steady-state $s$ of $\mc{S}^\dagger$. This satisfies $out_\dagger(s) = o$ and $up_\dagger(s,i) = s$. By definition $out_\dagger(s) = \pi_2(out(s))$, so $out(s) = (x,o)$ for some $x$. Moreover, $s = up_\dagger(s,i) = up(s,(\pi_1(out_s),i)) = up(s,(x,i))$, so $s$ is also an $(x,i),(x,o)$-steady-state of $\mc{S}$. Conversely, any $(x,i),(x,o)$-steady-state $s$ satisfies $out(s) = (x,o)$ and $up(s,(x,i)) = s$. Hence $out_\dagger(s) = o$ and $up_\dagger(s,i) = up(s,(\pi_1(out(s)),i)) = up(s,(x,i)) = s$. So $s$ is an $i,o$-steady-state of $\mc{S}^\dagger$. 
 
 \subsubsection{Back to codesign}
-We can now apply the above ideas to the parametrized system $\mc{P}$ representing to feasibility relation $\Phi: R \prof F$. Recall that we wrote $\Phi = \bigcup_{i \in I} \varphi_i$ as a union of monotone functions $\varphi_i \colon R_i \rightarrow F$. Then the system takes inputs $(i, r) \in I \times R_i$ and outputs $\varphi_i(r)$. It has states $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, with identity on-positions map $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and on-directions map $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$.
+We can now apply the above ideas to the parametrized system $\mc{P}$ representing to feasibility relation $\Phi: R \bprof F$. Recall that we wrote $\Phi = \bigcup_{i \in I} \varphi_i$ as a union of monotone functions $\varphi_i \colon R_i \rightarrow F$. Then the system takes inputs $(i, r) \in (I \times R_i)_{i \in I}$ and outputs $\varphi_i(r) \in F$. It has states $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, with identity on-positions map $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and on-directions map $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$.
 
-Observe that an $(i,r),(j,f)$-steady-state of $\mc{P}$ is $s = (i,\varphi_j(r))$ satisfying $(j,f) = out(s) = (i,\varphi_j(r))$ and $s = up(s,(i,r)) = (i,\varphi_i(r))$. Hence $j=i$ and $f = \varphi_i(r)$. Therefore
+Observe that an $(i,r),(j,f)$-steady-state of $\mc{P}$ is $s = (k,\varphi_l(r))$ satisfying $(j,f) = out(s) = (k,\varphi_l(r))$ and $s = up(s,(i,r)) = (i,\varphi_k(r))$. Hence $i=j=k$ and $f = \varphi_i(r)$. Therefore
 $$M_\mc{P}(i,r)(j,f) = \begin{cases} (i,\varphi_i(r)), & \text{if } i=j \text{ and } \varphi_i(r) = f, \\ \emptyset, & \text{else.} \end{cases} $$
 
 We now plug the output parameter $i \in I$ back as input into the system to get $\mc{P}^\dagger$:
@@ -361,26 +376,31 @@ We now plug the output parameter $i \in I$ back as input into the system to get 
 
 The steady states of $\mc{P}^\dagger$ are given by
 \begin{IEEEeqnarray*}{rCl}
-	M_{\mc{P}^\dagger}(r,f) &=& \sum_{i \in I} M_\mc{P}(i,r)(i,f) \\
-	&=& \sum_{i \in I} \begin{cases} (i,\varphi_i(r)), & \text{if } i=j \text{ and } \varphi_i(r) = f, \\ \emptyset, & \text{else.} \end{cases} \\
-	&=& \sum_{i \in I} \{(i,\varphi_i(r)) : \varphi_i(r) = f\}.
+	m^{\mc{P}^\dagger}_{r,f} &=& \sum_{i \in I} m^\mc{P}_{(i,r)(i,f)} \\
+	&=& \sum_{i \in I} \begin{cases} (i,\varphi_i(r)), & \text{if } i=i \text{ and } \varphi_i(r) = f, \\ \emptyset, & \text{else.} \end{cases} \\
+	&=& \{(i,\varphi_i(r)) : \varphi_i(r) = f\}.
 \end{IEEEeqnarray*}
-Hence $M_{\mc{P}^\dagger}(r,f)$ is non-empty iff $\varphi_i(r) = f$ for some $i$ iff $\Phi(r,f)$ is feasible. So $M_{\mc{P}^\dagger}$ is essentially just the matrix associated to the relation $\Phi$ (although the matrix could contain sets with multiple elements if our decomposition of $\Phi$ was not disjoint). We will interpret $M_{\mc{P}^\dagger}(r,f)$ as the set of ways to transform $r$ into $f$. Hence we have shown that we can encode a feasibility relation $\Phi$ into a system $\mc{P}$ whose steady states are precisely the transformations of $\Phi$.
+Hence $m^{\mc{P}^\dagger}_{r,f}$ is non-empty iff $\varphi_i(r) = f$ for some $i$ iff $\Phi(r,f)$ is feasible. So the steady-state matrix $M_{\mc{P}^\dagger}$ is essentially just the matrix associated to the relation $\Phi$ (although the matrix could contain sets with multiple elements if our decomposition of $\Phi$ was not disjoint). We will interpret $m^{\mc{P}^\dagger}_{r,f}$ as the set of ways to transform $r$ into $f$. Hence we have shown that we can encode a feasibility relation $\Phi$ into a system $\mc{P}^\dagger$ whose steady states are precisely the transformations of $\Phi$.
 
-Now let $\mc{P}$ be a system representing $\Phi: R \prof F$ and $\mc{Q}$ be a system representing $\Psi: F \prof G$. The matrix of steady-states of the sequential composite can be calculated by $M_{\mc{P} \triangleleft \mc{Q}} = M_{\mc{P}} \cdot M_\mc{Q}$ where $M_{\mc{P}} \cdot M_\mc{Q}(r,g) = \sum_{f \in F} M_{\mc{P}}(r,f) \times M_\mc{Q}(r,g)$. On the other hand, $\Psi \circ \Phi (r,g) = \bigvee_{f \in F} \Phi(r,f) \wedge \Psi(f,g)$. So the sequential composite $\mc{P} \triangleleft \mc{Q}$ has almost the same steady-states as a system representing $\Psi \circ \Phi$. The only difference is that the sequential composition of systems also keeps track of the possible ways on can transform $r$ into $g$.
+\subsubsection{Compatibility with composition and other operations}
+Now let $\mc{P}$ be a system representing $\Phi: R \prof F$ and $\mc{Q}$ be a system representing $\Psi: F \prof G$ (in the sense that the entries of the steady state matrix of the system in question has the same cardinality as the matrix representing the feasibility relation). The matrix of steady-states of the sequential composite can be calculated by $M_{\mc{P} \triangleleft \mc{Q}} = M_{\mc{P}} \cdot M_\mc{Q}$ where $(M_{\mc{P}} \cdot M_\mc{Q})_{r,g} = \sum_{f \in F} m^{\mc{P}}_{r,f} \times m^\mc{Q}_{f,g}$. On the other hand, $\Psi \circ \Phi (r,g) = \bigvee_{f \in F} \Phi(r,f) \wedge \Psi(f,g)$. So the sequential composite $\mc{P} \triangleleft \mc{Q}$ has almost the same steady-states as a system representing $\Psi \circ \Phi$. The only difference is that the sequential composition of systems also keeps track of the possible ways on can transform $r$ into $g$. The above compatibility kind of looks like a functoriality condition, but keep in mind that the sequential product $\triangleleft$ is not the default composition operation in the category of mode-dependent lenses.
 
-We also have compatibility with the parallel product: If $\mc{P}$ represents $\Phi: R \prof F$ and $\mc{Q}$ represents $\Psi: R' \prof F'$, then the steady-states of the parallel product $\mc{P} \otimes \mc{Q}$ are given by $M_{P \otimes Q}((r,r'),(f,f')) = M_P(r,f) \times M_Q(r',f')$. On the other hand, $\Phi \otimes \Psi ((r,r'),(f,f')) = \Phi(r,f) \wedge \Psi(r',f')$. This shows that the $M_{P \otimes Q}$ is the same as the steady-state matrix of a system representing $\Phi \otimes \Psi$.
+We also have compatibility with the parallel product: If $\mc{P}$ represents $\Phi: R \prof F$ and $\mc{Q}$ represents $\Psi: R' \prof F'$, then the steady-states of the parallel product $\mc{P} \otimes \mc{Q}$ are given by $m^{P \otimes Q}_{(r,r'),(f,f')} = m^P_{r,f} \times m^Q_{r',f'}$. On the other hand, $\Phi \otimes \Psi ((r,r'),(f,f')) = \Phi(r,f) \wedge \Psi(r',f')$. This shows that $M_{P \otimes Q}$ is the same as the steady-state matrix of a system representing $\Phi \otimes \Psi$.
 
 \begin{question}
 	What system has the disjoint union of the steady states of its components? This would amount to taking the direct sum of the steady-state matrices.
 \end{question}
 
-Answer: Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ and $\mc{T} := \lens{up_T}{out_T} \colon \lens{T_{t \in T}}{T} \leftrightarrows \lens{J_{u \in U}}{U}$. Define $\mc{S} \sqcup \mc{T} \colon \lens{S \sqcup T}{S \sqcup T} \leftrightarrows \lens{I_o \sqcup J_u}{O \sqcup U}$ with on-positions function 
+Answer: Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}$ and $\mc{T} := \lens{up_T}{out_T} \colon \lens{(T)_{t \in T}}{T} \leftrightarrows \lens{(J_u)_{u \in U}}{U}$. Define 
+$$\mc{S} \sqcup \mc{T} \colon \lens{(S \sqcup T)_{x \in S \sqcup T}}{S \sqcup T} \leftrightarrows \lens{(L_y)_{y \in O \sqcup U}}{O \sqcup U}$$ 
+where 
+$$L_y = \begin{cases} I_y & y \in O \\ J_y & y \in U. \end{cases}$$
+with on-positions function 
 $$x \mapsto \begin{cases} out_S(x) & x \in S \\ out_T(x) & x \in T. \end{cases}$$ 
 and on-directions function 
 $$ x \mapsto \begin{cases} i \in I_x \mapsto up_S(x,i) & x \in S \\ j \in J_x \mapsto up_T(x,j) & x \in T. \end{cases}$$
 The steady-state matrix of this system will satisfy 
-$$M_{S \sqcup T}(x,y) = \begin{cases} M_S(x,y) & y \in O, x \in I_o \\  M_T(x,y) & y \in U, x \in J_u \\ \emptyset & \text{else.} \end{cases} = M_S \oplus M_T.$$
+$$m^{S \sqcup T}_{x,y} = \begin{cases} m^S_{x,y} & y \in O, x \in I_o \\  m^T_{x,y} & y \in U, x \in J_u \\ \emptyset & \text{else.} \end{cases} = (M_S \oplus M_T)_{x,y}.$$
 
 \begin{question}
 	Think about how linear algebra concepts translate: Hadamard product, inverses, spectral theorem, inner products, orthogonal matrices, norms, ect. How much of linear algebra translates to matrices valued in a monoid like $\mathbb{N}$?
@@ -389,9 +409,9 @@ $$M_{S \sqcup T}(x,y) = \begin{cases} M_S(x,y) & y \in O, x \in I_o \\  M_T(x,y)
 \subsection{Introducing dynamics}
 
 \begin{tcdefinition}{Trajectories}{trajectories}
-	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{S_{s \in S}}{S} \leftrightarrows \lens{I_{o \in O}}{O}$ and consider the system $\mc{T} \colon \lens{\mathbb{N}_{n \in \mathbb{N}}}{\mathbb{N}} \leftrightarrows \lens{*}{\mathbb{N}}$ whose on-positions map is the identity and whose on-directions map sends $n \mapsto * \mapsto n+1$.
+	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}$ and consider the system $\mc{T} \colon \lens{(\mathbb{N})_{n \in \mathbb{N}}}{\mathbb{N}} \leftrightarrows \lens{*}{\mathbb{N}}$ whose on-positions map is the identity and whose on-directions map sends $n \mapsto * \mapsto n+1$.
 
-	A chart $\lens{f_\flat}{f} \colon \lens{*}{\mathbb{N}} \rightrightarrows \lens{I_{o \in O}}{O}$ consists of a sequence $f \colon \mathbb{N} \rightarrow O$ and a family of maps $f_{\flat,n} \colon * \rightarrow I_{f(n)}$. We can identify the latter with a sequence $(a_0, a_1, \ldots)$ where each $a_i \in I_{f(i)}$.
+	A chart $\lens{f_\flat}{f} \colon \lens{*}{\mathbb{N}} \rightrightarrows \lens{(I_o)_{o \in O}}{O}$ consists of a sequence $f \colon \mathbb{N} \rightarrow O$ and a dependent function $f_\flat \colon (n \in \mathbb{N}) \rightarrow * \rightarrow I_{f(n)}$. We can identify the latter with a sequence $(a_0, a_1, \ldots)$ where each $a_i \in I_{f(i)}$.
 
 	Given sequences $o \in \prod_{n \in \mathbb{N}} O$ and $i \in \prod_{n \in \mathbb{N}} I_{o(n)}$, an $i,o$-trajectory in $\mc{S}$ consists of a sequence $s \colon \mathbb{N} \rightarrow S$ such that for all $n \in \mathbb{N}$ we have
 	$$out(s(n)) = o(n), $$

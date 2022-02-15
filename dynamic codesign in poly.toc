@@ -5,9 +5,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.1}Lenses in $\mathsf {Poly}$}{2}{subsection.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2}Operations in $\mathsf {Poly}$}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.2}Mode-dependent lenses}{3}{subsection.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3}Mode-dependence}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.3}Mode-dependent systems}{3}{subsection.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4}Operations in $\mathsf {Poly}$}{3}{subsection.1.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2}Codesign in \textsf {Poly} via lower sets}{4}{section.2}%
 \defcounter {refsection}{0}\relax 
@@ -17,12 +19,14 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3}Application to codesign}{7}{subsection.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Codesign in \textsf {Poly} via parameterized systems}{7}{section.3}%
+\contentsline {section}{\numberline {3}Codesign in \textsf {Poly} via parameterized systems}{8}{section.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1}Codesign as steady-state analysis of time-invariant systems}{8}{subsection.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1}Steady-state matrices}{8}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Steady-state matrices}{9}{subsubsection.3.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2}Back to codesign}{10}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.2}Back to codesign}{11}{subsubsection.3.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Introducing dynamics}{12}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Compatibility with composition and other operations}{12}{subsubsection.3.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2}Introducing dynamics}{13}{subsection.3.2}%
