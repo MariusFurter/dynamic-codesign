@@ -119,6 +119,9 @@ citestyle=alphabetic]{biblatex}
 
 \newtcbtheorem[number within=section, use counter from = tcdefinition]{tcexample}{Example}{colback=paleorange,colframe=BurntOrange,fonttitle=\bfseries, breakable, enhanced}{ex}
 
+
+\newtcbtheorem[number within=section, use counter from = tcdefinition]{tcremark}{Remark}{colback=white,colframe=gray,fonttitle=\bfseries, breakable, enhanced}{rem}
+
 \newtcbtheorem[]{tcproblem}{Problem}{colback=palered,colframe=Bittersweet,fonttitle=\bfseries, breakable, enhanced}{pr}
 
 \newcommand{\zuz}[1]{%
@@ -315,11 +318,15 @@ The basic idea is that an feasibility relation must be realized by some machine 
 Concretely, we will decompose a feasibility relation into a union of functions. Each of these functions will be implemented as one setting of a parameterized machine. We can then sum over the parameters to recover the feasibility relation. In this way, classic codesign will turn out to be steady-state analysis of certain time-invariant systems.
 
 \subsection{Codesign as steady-state analysis of time-invariant systems}
-Let $\Phi: R \bprof F$ be a feasibility relation. Write $\Phi = \bigcup_{i \in I} \varphi_i$, where $\varphi_i: R_i \rightarrow F$ are monotone maps. We will call the $\bigcup_{i \in I} \varphi_i$ a \emph{realization} of $\Phi$ and each $\varphi_i$ a \emph{realizer}. In general there are many realizations of a feasibility relation. It will turn out to be immaterial what decomposition is chosen, but having a smaller index set $I$ is preferable. The minimal size of $I$ is determined by $\max_{r \in R}{| \{f : \Phi(r,f) \} |}$.
+Let $\Phi: R \bprof F$ be a feasibility relation. Write $\Phi = \bigcup_{i \in I} \varphi_i$, where $\varphi_i: R_i \rightarrow F$ are monotone maps. We will call the $\bigcup_{i \in I} \varphi_i$ a \emph{mode decomposition} of $\Phi$ and each $\varphi_i$ a \emph{mode}. In general there are many realizations of a feasibility relation. It will turn out to be immaterial what decomposition is chosen, but having a smaller index set $I$ is preferable. The minimal size of $I$ is determined by $\max_{r \in R}{| \{f : \Phi(r,f) \} |}$.
 
 We will now use the $\varphi_i$ to construct a parametrized mode-dependent system $\mc{P}$ which takes inputs $(i, r) \in (I \times R_i)_{i \in I}$ and outputs $\varphi_i(r) \in F$. Formally we set $S := \{ (i,\varphi_j(r)) : i,j \in I, r \in R_j \}$, define the on-positions map to be the identity $(i,\varphi_j(r)) \mapsto (i,\varphi_j(r))$, and let the on-directions map be $(i,\varphi_j(x))\mapsto (k,r \in R_i) \mapsto (k,\varphi_i(r))$. 
 
 In words, the system's states are transformed resources along with the current parameter setting. The systems simply outputs its state. On update, if the system is in setting $i$, it takes a resource $r \in R_i$ (mode-dependence allows us to impose this constraint) and a new parameter setting $k$. It then transforms the resource into $\varphi_i(r)$ using the map corresponding to its setting and then updates its setting $i \rightsquigarrow k$.
+
+\begin{tcremark}{Why not simpler?}{}
+	The reason we choose states $(i,\varphi_j(r))$ rather than the simpler $(i,\varphi_i(r))$ is so that we can enforce the restriction on inputs. This requires that the system already be in a mode before we input a resource. Conceptually it is best to think of our input of $(i,r)$ into the system in two steps: First we input the resource $r$ according to the current mode, then we select a new mode $i$. An alternative would be to not restrict inputs and simply output the blank resource \texttt{nothing} if we feed the system an invalid input. However, this will cause us to lose the resource we inputted and results in artifacts during analysis. It is thus better to have machines which don't allow us to input invalid resources. We can always implement this alternative behavior in our mode dependent systems if it is desired.
+\end{tcremark}
 
 \begin{tcexample}{Apples and Oranges}{apple-orange}
 
@@ -407,6 +414,42 @@ $$m^{S \sqcup T}_{x,y} = \begin{cases} m^S_{x,y} & y \in O, x \in I_o \\  m^T_{x
 \end{question}
 
 \subsection{Introducing dynamics}
+In the previous section, our machine always had the same set of modes available at any time. We will now allow the available modes of the machine to change according to its operating history. To analyze the capabilities of such a machine we will now look at trajectories rather than steady-states.
+
+\subsubsection{Dependency graphs}
+The available modes a machine has will be encoded in its dependency graph:
+\begin{tcdefinition}{Dependency graph}{dependency-graph}
+	A \emph{dependency graph} it a labeled directed hierarchical graph. It consists of a collection $\mc{N} := (M_t)_{t \in T}$ where each $M_t := \{ m_{t,i} : i \in I_t\}$ is a collection of modes, and for all $t \in T$ and $i \in I_t$ there is a labeled set of directed edges going from $m_{t,i}$ to elements of $\mc{N}$. The directed edges labels have the form $(r \leadsto f)$, where $r$ is a resource, and $f$ a functionality. Moreover, for each $m_{t,i}$ there is at most one edge with resource component $r$, that is we can't simultaneously have edges $(r \leadsto f)$ and $(r \leadsto g)$.
+	
+	The set $M_t$ expresses the modes that the machine has available at time $t$. If we select one of those modes $m_{i,t}$, the edges emanating from $m_{i,t}$ express the different options of resources we can input into the machine when it is running in mode $m_{i,t}$. If we choose a valid input $r$, we follow the edge labeled $(r \leadsto f)$ to a new set of modes $M_{t'}$ that become available in the next time-step. During this transition the machine will output $f$.
+\end{tcdefinition}
+
+\begin{tcexample}{}{}
+
+\end{tcexample}
+
+\begin{tcremark}{Dependency Graph as Mealy machine}{dep-mealy}
+	The dependency graph is essentially a compact representation of a type of Mealy machine. To convert the dependency graph into a Mealy machine, view each edge $m_{t,i} \rightarrow M_{t'}$ labeled by $(r \leadsto f)$ as a set of edges $m_{t,i} \rightarrow m_{t',j}$ labeled by $((j,r) \leadsto f)$ for all $j \in I_{t'}$. In the dependency graph we are simply conceptually separating the inputting of resources from the choice of mode which is possible since all combinations are allowed. Finally, the mode-dependent system corresponding to a dependency graph will simply be the mode-dependent system associated to the Mealy machine obtained in this way.
+\end{tcremark}
+
+\begin{tcexample}{Converting feasibility relations to dependency graph}{}
+
+\end{tcexample}
+
+\begin{tcexample}{Converting dependency graph to feasibility realtions}{}
+
+\end{tcexample}
+
+Given a dependency graph we can construct a mode-dependent system associated to it in the following way:
+\begin{tcdefinition}{System associated to dependecy graph}{}
+
+\end{tcdefinition}
+
+\begin{tctheorem}{Correspondence theorem}{}
+	The correspondence between dependency graphs and their associated mode-dependent systems is one-to-one.
+\end{tctheorem}
+
+\subsubsection{Trajectory analysis}
 
 \begin{tcdefinition}{Trajectories}{trajectories}
 	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}$ and consider the system $\mc{T} \colon \lens{(\mathbb{N})_{n \in \mathbb{N}}}{\mathbb{N}} \leftrightarrows \lens{*}{\mathbb{N}}$ whose on-positions map is the identity and whose on-directions map sends $n \mapsto * \mapsto n+1$.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.17)  15 FEB 2022 17:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.17)  16 FEB 2022 08:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -913,24 +913,24 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (./dynamic codesign in poly.aux)
 \openout1 = `"dynamic codesign in poly.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 189.
-LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 192.
+LaTeX Font Info:    ... okay on input line 192.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
@@ -954,7 +954,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 189.
+Package hyperref Info: Link coloring ON on input line 192.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -964,9 +964,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count465
 )
-LaTeX Info: Redefining \ref on input line 189.
-LaTeX Info: Redefining \pageref on input line 189.
-LaTeX Info: Redefining \nameref on input line 189.
+LaTeX Info: Redefining \ref on input line 192.
+LaTeX Info: Redefining \pageref on input line 192.
+LaTeX Info: Redefining \nameref on input line 192.
  (./dynamic codesign in poly.out) (./dynamic codesign in poly.out)
 \@outlinefile=\write7
 \openout7 = `"dynamic codesign in poly.out"'.
@@ -996,21 +996,21 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"dynamic codesign in poly".bbl' not found.
 
 No file "dynamic codesign in poly".bbl.
-Package biblatex Info: Reference section=0 on input line 189.
-Package biblatex Info: Reference segment=0 on input line 189.
+Package biblatex Info: Reference section=0 on input line 192.
+Package biblatex Info: Reference segment=0 on input line 192.
 \c@lstlisting=\count466
-LaTeX Font Info:    Trying to load font information for U+msa on input line 192.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 195.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 192.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 195.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (./dynamic codesign in poly.toc)
 \tf@toc=\write8
 \openout8 = `"dynamic codesign in poly.toc"'.
 
-LaTeX Font Info:    Trying to load font information for U+eus on input line 195.
+LaTeX Font Info:    Trying to load font information for U+eus on input line 198.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/ueus.fd
 File: ueus.fd 2013/01/14 v3.01 Euler Script
 ) [1
@@ -1018,64 +1018,64 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 209.
+(hyperref)                removing `math shift' on input line 212.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 209.
+(hyperref)                removing `math shift' on input line 212.
 
 [2]
 
-LaTeX Warning: Citation 'cat_sys_book' on page 3 undefined on input line 218.
+LaTeX Warning: Citation 'cat_sys_book' on page 3 undefined on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 227.
+(hyperref)                removing `math shift' on input line 230.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 227.
+(hyperref)                removing `math shift' on input line 230.
 
 
-Overfull \hbox (3.47487pt too wide) in paragraph at lines 228--229
+Overfull \hbox (3.47487pt too wide) in paragraph at lines 231--232
 $[]$ \OT1/cmr/m/n/12 has four monoidal op-er-a-tions $+\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 ^^B\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 ^^N\OML/cmm/m/it/12 ;$ \OT1/cmr/m/n/12 and $\OMS/cmsy/m/n/12 
 $\OT1/cmr/m/n/12 , where $\OMS/cmsy/m/n/12 ^^B$ \OT1/cmr/m/n/12 and $\OMS/cmsy/m/n/12 
 $ \OT1/cmr/m/n/12 are monoidal
  []
 
-[3] [4] [5] [6]
-Overfull \hbox (0.75204pt too wide) in paragraph at lines 312--312
+[3] [4] [5] [6] [7]
+Overfull \hbox (0.75204pt too wide) in paragraph at lines 315--315
 []\OT1/cmr/bx/n/17.28 Codesign in \OT1/cmss/bx/n/17.28 Poly \OT1/cmr/bx/n/17.28 via pa-ram-e-ter-ized sys-tems 
  []
 
-[7] [8] [9]
-<./images//trace.jpg, id=189, 2238.3625pt x 1139.25626pt>
+[8] [9] [10]
+<./images//trace.jpg, id=205, 2238.3625pt x 1139.25626pt>
 File: ./images//trace.jpg Graphic file (type jpg)
 <use ./images//trace.jpg>
-Package pdftex.def Info: ./images//trace.jpg  used on input line 356.
+Package pdftex.def Info: ./images//trace.jpg  used on input line 363.
 (pdftex.def)             Requested size: 155.99762pt x 79.39102pt.
- [10 <./images//trace.jpg>]
-<./images//parameter-trace.jpg, id=194, 2110.88625pt x 1194.4625pt>
+ [11 <./images//trace.jpg>]
+<./images//parameter-trace.jpg, id=210, 2110.88625pt x 1194.4625pt>
 File: ./images//parameter-trace.jpg Graphic file (type jpg)
 <use ./images//parameter-trace.jpg>
-Package pdftex.def Info: ./images//parameter-trace.jpg  used on input line 374.
+Package pdftex.def Info: ./images//parameter-trace.jpg  used on input line 381.
 (pdftex.def)             Requested size: 155.99762pt x 88.26854pt.
- [11 <./images//parameter-trace.jpg>] [12]
-Overfull \hbox (10.35382pt too wide) in paragraph at lines 406--407
+ [12 <./images//parameter-trace.jpg>]
+Overfull \hbox (10.35382pt too wide) in paragraph at lines 413--414
 \OT1/cmr/m/it/12 prod-uct, in-verses, spec-tral the-o-rem, in-ner prod-ucts, or-thog-o-nal ma-tri-ces, norms,
  []
 
-
-Underfull \hbox (badness 1163) in paragraph at lines 412--413
+[13] [14]
+Underfull \hbox (badness 1163) in paragraph at lines 455--456
 []\OT1/cmr/m/n/12 Let $\U/eus/m/n/12 S \OT1/cmr/m/n/12 := [] [] [] [] \U/msa/m/n/12 ^^\ []$ \OT1/cmr/m/n/12 and con-sider the sys-tem
  []
 
-[13] (./dynamic codesign in poly.aux)
+[15] (./dynamic codesign in poly.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `"dynamic codesign in poly".out' has not changed.
-(rerunfilecheck)             Checksum: EDC0AF5332ACD01F1B82CC2E51E43235;2832.
+(rerunfilecheck)             Checksum: 2EF1C2823098B02D1BCA9B0A3F3ECFA2;3154.
 
 Package biblatex Warning: Please (re)run BibTeX on the file(s):
 (biblatex)                "dynamic codesign in poly"
@@ -1086,18 +1086,18 @@ Package logreq Info: Writing requests to '"dynamic codesign in poly".run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37667 strings out of 478846
- 755908 string characters out of 5855774
- 1308248 words of memory out of 5000000
- 54670 multiletter control sequences out of 15000+600000
- 416453 words of font info for 77 fonts, out of 8000000 for 9000
+ 37712 strings out of 478846
+ 756750 string characters out of 5855774
+ 1305847 words of memory out of 5000000
+ 54702 multiletter control sequences out of 15000+600000
+ 416622 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,16n,96p,1907b,1782s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/euler/eusm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "dynamic codesign in poly.pdf" (13 pages, 501827 bytes).
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/euler/eusm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "dynamic codesign in poly.pdf" (15 pages, 512699 bytes).
 PDF statistics:
- 285 PDF objects out of 1000 (max. 8388607)
- 222 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
- 287 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 317 PDF objects out of 1000 (max. 8388607)
+ 251 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 303 words of extra memory for PDF output out of 10000 (max. 10000000)
 
