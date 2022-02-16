@@ -432,22 +432,40 @@ The available modes a machine has will be encoded in its dependency graph:
 	The dependency graph is essentially a compact representation of a type of Mealy machine. To convert the dependency graph into a Mealy machine, view each edge $m_{t,i} \rightarrow M_{t'}$ labeled by $(r \leadsto f)$ as a set of edges $m_{t,i} \rightarrow m_{t',j}$ labeled by $((j,r) \leadsto f)$ for all $j \in I_{t'}$. In the dependency graph we are simply conceptually separating the inputting of resources from the choice of mode which is possible since all combinations are allowed. Finally, the mode-dependent system corresponding to a dependency graph will simply be the mode-dependent system associated to the Mealy machine obtained in this way.
 \end{tcremark}
 
-\begin{tcexample}{Converting feasibility relations to dependency graph}{}
-
+\begin{tcexample}{Converting dependency graph to dependent relations}{}
+	Given a dependency graph, we can recover a relation $\mc{M}_t$ for each collection of modes $M_t$ by setting $\mc{M}_t(r,f) = \mathtt{true}$ iff there exists a $m_{t,i}$ with outgoing edge $(r \leadsto f)$. We can now assemble these relations $\mc{M}_t$ into a new labeled directed graph with nodes $\{\mc{M}_t : t \in T\}$ by contracting each set of nodes $M_t$ to a single node $\mc{M}_t$ while preserving the directed edges and their labels. More precisely, we put a
+	labeled directed edge $(r \leadsto f) \colon \mc{M}_t \rightarrow \mc{M}_{t'}$ iff there exists $m_{t,i} \in M_t$ with an edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$ for some $t' \in T$. We will call this new directed labeled graph a \emph{dependent relation}.
+	
+	Suppose we fix an ordering on the resources and functionalities appearing in the edge labels. Then the $\mc{M}_t$ are relations between preorders. If all relations $\mc{M}_t$ are feasibility relations, we will call the dependency graph \emph{monotone}. Each $M_t$ in a monotone dependency graph will satisfy:
+	\begin{itemize}
+		\item[(i)] If $r \leq s$ and there is an edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$, then there is also an edge $(s \leadsto f) \colon m_{t,i'} \rightarrow M_{t''}$, 
+		\item[(ii)] If $f \leq g$ and there is an edge $(r \leadsto g) \colon m_{t,i} \rightarrow M_{t'}$, then there is also an edge $(r \leadsto f) \colon m_{t,i'} \rightarrow M_{t''}$.
+	\end{itemize}
+	Conversely, any monotone dependency graph gives rise to a dependent relation whose nodes are all feasibility relations.
 \end{tcexample}
 
-\begin{tcexample}{Converting dependency graph to feasibility realtions}{}
+\begin{tcexample}{Converting dependent feasibility relations to monotone dependency graph}{}
+	Suppose we are given a dependent relation whose nodes are all feasibility relations. Explicitly, we consider a collection of feasibility relations $\Phi_t \colon R_t \rightarrow F_t$. A dependent feasibility relation with nodes $\Phi_t$ is a labeled directed graph where for each node $\Phi_t$ we have outgoing directed edges labeled by $(r \leadsto f)$ for each feasible pair $(r,f) \in \Phi_t$.
 
+	We can convert such a dependent feasibility relation to a monotone dependency graph by choosing a mode decomposition $\Phi_t = \bigcup_{i \in I_t} \varphi_{t,i}$ for each $t \in T$, where the $\varphi_{t,i} \colon: R_{t,i} \rightarrow F_t$ are monotone maps. We then set $M_t := \{ \varphi_{t,i} : i \in I_t \}$ and for each $\varphi_{t,i}$ we put an outgoing labeled edge $(r \leadsto f) \colon : \varphi_{t,i} \rightarrow M_{t'}$ iff $\varphi(r) = f$ and there is a labeled edge $(r \leadsto f) \colon \Phi_t \rightarrow \Phi_t'$ in the dependent feasibility relation. In other words, we are expanding each node $\Phi_t$ to a set of modes and partitioning the labeled edges accordingly.
 \end{tcexample}
 
 Given a dependency graph we can construct a mode-dependent system associated to it in the following way:
-\begin{tcdefinition}{System associated to dependecy graph}{}
+\begin{tcdefinition}{System associated to dependency graph}{}
+	Let $\mc{G}$ be a dependency graph with nodes $(M_t)_{t \in T}$ where $M_t  = (m_{t,i})$ for $i \in I_t$. If $m_{t,i} \in M_t$ is a mode, then denote by $\mathsf{edge}(m_{t,i})$ the set of labels of edges emanating from $m_{t,i}$. Denote further $R_{t,i} := \{ r : (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } f\}$ and $F_{t,i} := \{ f : (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } r\}$. Let $F := \bigcup_{t \in T, i \in I_t} F_{t,i}$ and $I := \bigsqcup_{t \in T} I_t$. For each $m_{t,i}$ we define a function $\mathsf{succ}_{t,i} \colon R_{t,i} \times T \rightarrow T$ which sends $(r,t) \rightarrow t'$ where $t'$ is the index of the target of the unique emanating edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$. Finally, define the function $\mathsf{return}_{t,i} \colon R_{t,i} \rightarrow F_{t,i}$ which sends $r$ to the unique functionality $f$ for which there is an emanating edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$.
+	
+	We construct a system $\mathsf{Sys}(\mc{G}) \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(R_{t,i})_{t \in T, i \in I_t}}{T \times I \times F}$ associated to $\mc{G}$ as follows:
+	The states of $\mathsf{Sys}(\mc{G})$ are given by 
+	$$S := \{ (t,i,f) : t \in T, i \in I_t, \exists (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } r \}$$
+	The output map is given by $(t,i,f) \mapsto (t,i,f)$.
+	The update map is given by $ (t,i,f) \mapsto (j,r \in R_{t,i}) \mapsto (\mathsf{succ}_{t,i}(r,t),j, \mathsf{return}_{t,i}(r))$.
 
+	Observe that this mapping is injective:
 \end{tcdefinition}
 
-\begin{tctheorem}{Correspondence theorem}{}
-	The correspondence between dependency graphs and their associated mode-dependent systems is one-to-one.
-\end{tctheorem}
+\begin{question}
+	Given two different monotone dependency graphs obtained from a given dependent feasibility relation, what is the relationship between the systems associated to each one?
+\end{question}
 
 \subsubsection{Trajectory analysis}
 

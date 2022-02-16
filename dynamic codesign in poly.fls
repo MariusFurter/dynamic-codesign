@@ -1271,6 +1271,8 @@ INPUT ./images//parameter-trace.jpg
 INPUT ./images//parameter-trace.jpg
 INPUT ./images//parameter-trace.jpg
 INPUT ./images//parameter-trace.jpg
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT dynamic codesign in poly.aux
 INPUT ./dynamic codesign in poly.out
 INPUT ./dynamic codesign in poly.out

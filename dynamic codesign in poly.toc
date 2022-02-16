@@ -33,4 +33,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.1}Dependency graphs}{14}{subsubsection.3.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.2}Trajectory analysis}{15}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2}Trajectory analysis}{17}{subsubsection.3.2.2}%
