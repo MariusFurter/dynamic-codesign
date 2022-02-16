@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.17)  16 FEB 2022 10:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.17)  16 FEB 2022 12:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1049,13 +1049,13 @@ Overfull \hbox (0.75204pt too wide) in paragraph at lines 315--315
  []
 
 [8] [9] [10]
-<./images//trace.jpg, id=205, 2238.3625pt x 1139.25626pt>
+<./images//trace.jpg, id=220, 2238.3625pt x 1139.25626pt>
 File: ./images//trace.jpg Graphic file (type jpg)
 <use ./images//trace.jpg>
 Package pdftex.def Info: ./images//trace.jpg  used on input line 363.
 (pdftex.def)             Requested size: 155.99762pt x 79.39102pt.
  [11 <./images//trace.jpg>]
-<./images//parameter-trace.jpg, id=210, 2110.88625pt x 1194.4625pt>
+<./images//parameter-trace.jpg, id=225, 2110.88625pt x 1194.4625pt>
 File: ./images//parameter-trace.jpg Graphic file (type jpg)
 <use ./images//parameter-trace.jpg>
 Package pdftex.def Info: ./images//parameter-trace.jpg  used on input line 381.
@@ -1065,17 +1065,17 @@ Overfull \hbox (10.35382pt too wide) in paragraph at lines 413--414
 \OT1/cmr/m/it/12 prod-uct, in-verses, spec-tral the-o-rem, in-ner prod-ucts, or-thog-o-nal ma-tri-ces, norms,
  []
 
-[13] [14] [15]
-Underfull \hbox (badness 1163) in paragraph at lines 473--474
+[13] [14] [15] [16] [17]
+Underfull \hbox (badness 1163) in paragraph at lines 516--517
 []\OT1/cmr/m/n/12 Let $\U/eus/m/n/12 S \OT1/cmr/m/n/12 := [] [] [] [] \U/msa/m/n/12 ^^\ []$ \OT1/cmr/m/n/12 and con-sider the sys-tem
  []
 
-[16] [17] (./dynamic codesign in poly.aux)
+[18] [19] (./dynamic codesign in poly.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `"dynamic codesign in poly".out' has not changed.
-(rerunfilecheck)             Checksum: 2EF1C2823098B02D1BCA9B0A3F3ECFA2;3154.
+(rerunfilecheck)             Checksum: E9DA0D4058ADF73A548D2E4D349448A3;3807.
 
 Package biblatex Warning: Please (re)run BibTeX on the file(s):
 (biblatex)                "dynamic codesign in poly"
@@ -1086,18 +1086,18 @@ Package logreq Info: Writing requests to '"dynamic codesign in poly".run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37717 strings out of 478846
- 756783 string characters out of 5855774
- 1305847 words of memory out of 5000000
- 54704 multiletter control sequences out of 15000+600000
- 416958 words of font info for 80 fonts, out of 8000000 for 9000
+ 37743 strings out of 478846
+ 757214 string characters out of 5855774
+ 1305914 words of memory out of 5000000
+ 54718 multiletter control sequences out of 15000+600000
+ 417579 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,16n,96p,1907b,1782s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/euler/eusm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "dynamic codesign in poly.pdf" (17 pages, 521700 bytes).
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/euler/eusm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "dynamic codesign in poly.pdf" (19 pages, 537508 bytes).
 PDF statistics:
- 325 PDF objects out of 1000 (max. 8388607)
- 257 compressed objects within 3 object streams
- 58 named destinations out of 1000 (max. 500000)
- 303 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 360 PDF objects out of 1000 (max. 8388607)
+ 289 compressed objects within 3 object streams
+ 68 named destinations out of 1000 (max. 500000)
+ 327 words of extra memory for PDF output out of 10000 (max. 10000000)
 

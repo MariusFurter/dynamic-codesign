@@ -452,7 +452,7 @@ The available modes a machine has will be encoded in its dependency graph:
 
 Given a dependency graph we can construct a mode-dependent system associated to it in the following way:
 \begin{tcdefinition}{System associated to dependency graph}{}
-	Let $\mc{G}$ be a dependency graph with nodes $(M_t)_{t \in T}$ where $M_t  = (m_{t,i})$ for $i \in I_t$. If $m_{t,i} \in M_t$ is a mode, then denote by $\mathsf{edge}(m_{t,i})$ the set of labels of edges emanating from $m_{t,i}$. Denote further $R_{t,i} := \{ r : (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } f\}$ and $F_{t,i} := \{ f : (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } r\}$. Let $F := \bigcup_{t \in T, i \in I_t} F_{t,i}$ and $I := \bigsqcup_{t \in T} I_t$. For each $m_{t,i}$ we define a function $\mathsf{succ}_{t,i} \colon R_{t,i} \times T \rightarrow T$ which sends $(r,t) \rightarrow t'$ where $t'$ is the index of the target of the unique emanating edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$. Finally, define the function $\mathsf{return}_{t,i} \colon R_{t,i} \rightarrow F_{t,i}$ which sends $r$ to the unique functionality $f$ for which there is an emanating edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$.
+	Let $\mc{G}$ be a dependency graph with nodes $(M_t)_{t \in T}$ where $M_t  = (m_{t,i})$ for $i \in I_t$. If $m_{t,i} \in M_t$ is a mode, then denote by $\mathsf{edge}(m_{t,i})$ the set of labels of edges emanating from $m_{t,i}$. Denote further $R_{t,i} := \{ r : (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } f\}$ and $F_{t,i} := \{ f : (r \leadsto f) \in \mathsf{edge}(m_{t,i}) \text{ for some } r\}$. Let $F := \bigcup_{t \in T, i \in I_t} F_{t,i}$ and $I := \bigsqcup_{t \in T} I_t$. For each $m_{t,i}$ we define a function $\mathsf{succ}_{t,i} \colon R_{t,i} \times T \rightarrow T$ which sends $(r,t) \mapsto t'$ where $t'$ is the index of the target of the unique emanating edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$. Finally, define the function $\mathsf{return}_{t,i} \colon R_{t,i} \rightarrow F_{t,i}$ which sends $r$ to the unique functionality $f$ for which there is an emanating edge $(r \leadsto f) \colon m_{t,i} \rightarrow M_{t'}$.
 	
 	We construct a system $\mathsf{Sys}(\mc{G}) \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(R_{t,i})_{t \in T, i \in I_t}}{T \times I \times F}$ associated to $\mc{G}$ as follows:
 	The states of $\mathsf{Sys}(\mc{G})$ are given by 
@@ -460,14 +460,57 @@ Given a dependency graph we can construct a mode-dependent system associated to 
 	The output map is given by $(t,i,f) \mapsto (t,i,f)$.
 	The update map is given by $ (t,i,f) \mapsto (j,r \in R_{t,i}) \mapsto (\mathsf{succ}_{t,i}(r,t),j, \mathsf{return}_{t,i}(r))$.
 
-	Observe that this mapping is injective:
+	Observe that this mapping is injective on isomorphisms classes of dependency graphs: We can recover the nodes $M_t = (m_{t,i})$ from the states (up to isomorphism) and recover the emanating edges from $m_{t,i}$ using the update function. If the system is in state $(t,i,f)$ (as can be seen from its output) and $up(j,r \in R_{t,i}) = (t', j, g)$, we need to put an edge $(r \leadsto g) \colon m_{t,i} \rightarrow M_{t'}$.
 \end{tcdefinition}
 
 \begin{question}
-	Given two different monotone dependency graphs obtained from a given dependent feasibility relation, what is the relationship between the systems associated to each one?
+	Given two different monotone dependency graphs obtained from a given dependent feasibility relation, what is the relationship between the systems associated to each one? Will the mode-traced out systems be equivalent in the sense of bisimulation?
 \end{question}
 
+\subsubsection{Path analysis in dependency graphs}
+Given a (monotone) dependency graph, we can start asking codesign-style questions:
+\begin{itemize}
+	\item[(a)] Given that I can provide a sequence of resources $(r_1,r_2, \ldots, r_n)$ is it possible to obtain a given sequence of functionalities $(f_1, f_2, \ldots, f_n)$?
+	\item[(b)] Given that I can provide a sequence of resources $(r_1,r_2, \ldots, r_n)$ is it possible to obtain a specific functionality $f$ at some given time?
+	\item[(c)] Given that I can provide a sequence of resources $(r_1,r_2, \ldots, r_n)$ is it possible to obtain a specific functionality $f$ at some time (don't care when)?
+	\item[(d)] If I want to get functionality $f$ at time $t$, what is the cheapest sequence of resources $(r_1,r_2, \ldots, r_n)$ that will achieve this? 
+	\item[(e)] If I want to get a specific sequence of functionalities $(f_1, f_2, \ldots, f_n)$, what is the cheapest sequence of resources $(r_1,r_2, \ldots, r_n)$ that will achieve this?
+\end{itemize}
+
+Notice that all these questions can be phrased using sequences of resources and functionalities. The question (a) asks whether there is a path through the dependency graph labeled by $(r_1 \leadsto f_1), \ldots, (r_n \leadsto f_n)$. The questions (b) and (c) can be reduced to this question by considering a larger class of desirable output sequences. Questions (d) and (e) additionally involve the notion of minimization. For this we need to order sequences of resources by their value.
+
+\begin{tcdefinition}{Feasibility on sequences}{feas-seq}
+	Let $\mc{G}$ be a dependency graph and let $\mathbf{r} := (r_1,\ldots,r_n)$ be a sequence of resources and $\mathbf{f} := (f_1, \ldots, f_n)$ be a sequence of functionalities. The pair $(\mathbf{r},\mathbf{f})$ is feasible iff there exists a path $(r_1 \leadsto f_1), \ldots, (r_n \leadsto f_n)$ in $\mc{G}$.
+\end{tcdefinition}
+
+\begin{tctheorem}{}{}
+If $\mc{G}$ is a monotone dependency graph which was obtained from a dependent feasibility relation $(\Phi_t \colon R_t \bprof F_t)_{t \in T}$, then $(\mathbf{r},\mathbf{f})$ is feasible iff
+\begin{itemize}
+	\item[(i)] $(r_i, f_i) \in \Phi_{t_i}$ for all $1 \leq i \leq n$,
+	\item[(ii)] $\Phi_{t_{i+1}} = \Phi_{\mathsf{next}_{t_i}(r_i, f_i)}$ for all $t_i$,
+\end{itemize}
+where $\mathsf{next}_t : R_t \times F_t \rightarrow T$ maps $(r, f) \mapsto t'$ where $t'$ is the index associated with the target of the unique edge $(r \leadsto f) \colon \Phi_i \rightarrow \Phi_{t'}$.
+\end{tctheorem}
+
+\begin{tcdefinition}{Regular dependent feasibility relation}{}
+	\begin{itemize}
+		\item[(i)] $r \leq s$ and $(r \leadsto f) \colon \Phi_i \rightarrow \Phi_j$ implies $(s \leadsto f) \colon \Phi_i \rightarrow \Phi_j$,
+		\item[(ii)] $f \leq g$ and $(r \leadsto g) \colon \Phi_i \rightarrow \Phi_j$ implies $(r \leadsto f) \colon \Phi_i \rightarrow \Phi_j$.
+	\end{itemize}
+\end{tcdefinition}
+
+\begin{tctheorem}{}{}
+	For a regular dependent feasibility relation, feasibility of sequences is a feasibility relation $\Theta \colon R^n \bprof F^n$ when considering the product ordering on $R = \bigcup_t R_t$ and $F = \bigcup_t F_t$.
+\end{tctheorem}
+
+\subsubsection{Valuating sequences of resources}
+
+\subsubsection{Algorithmic aspects}
+If we care about the product ordering on sequences, it seems like we could find minimal paths (in terms of resource cost) by optimizing at each step, i.e taking the edge with our desired functionality that has minimal cost.
+
+
 \subsubsection{Trajectory analysis}
+If we think about the system associated to a dependency graph, path analysis becomes trajectory analysis. The systems picture is particularly useful if we want to think about composing systems by wiring them together.
 
 \begin{tcdefinition}{Trajectories}{trajectories}
 	Let $\mc{S} := \lens{up_S}{out_S} \colon \lens{(S)_{s \in S}}{S} \leftrightarrows \lens{(I_o)_{o \in O}}{O}$ and consider the system $\mc{T} \colon \lens{(\mathbb{N})_{n \in \mathbb{N}}}{\mathbb{N}} \leftrightarrows \lens{*}{\mathbb{N}}$ whose on-positions map is the identity and whose on-directions map sends $n \mapsto * \mapsto n+1$.
@@ -478,5 +521,9 @@ Given a dependency graph we can construct a mode-dependent system associated to 
 	$$out(s(n)) = o(n), $$
 	$$s(n+1) = up(s(n), i(n)).$$
 \end{tcdefinition}
+
+\begin{question}
+	Go through all composition operations for systems associated to dependency graphs and see if they translate back to natural operations on dependency graphs.
+\end{question}
 
 \end{document}

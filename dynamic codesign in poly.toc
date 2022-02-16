@@ -33,4 +33,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.1}Dependency graphs}{14}{subsubsection.3.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.2}Trajectory analysis}{17}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2}Path analysis in dependency graphs}{17}{subsubsection.3.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.3}Valuating sequences of resources}{18}{subsubsection.3.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.4}Algorithmic aspects}{18}{subsubsection.3.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.5}Trajectory analysis}{18}{subsubsection.3.2.5}%
